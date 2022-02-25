@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HighPaw</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HighPaw.Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color: #5e9693;">High</span><span style="color: #fff;">Paw</span></a>
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">How to adopt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Adopt a pet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Lost pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Found pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav me-auto float-end">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">Register</a>
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+        <!-- Navbar -->
+        <!--Section: Design Block-->
+        <section>
+            <!-- Intro -->
+            <div id="intro" class="bg-image vh-100" style="
+          background-image: url('https://img3.goodfon.com/wallpaper/nbig/f/43/koshka-lezhit-lapa-ruka-ladon.jpg'); 
+  background-repeat: no-repeat;
+  background-size: 100%;">
+                <div class="mask" style="background-color: rgba(250, 182, 162, 0.15);"></div>
+                <!--QuizFilter-->
+                ::before
+            <div class="container">
+      <div class="row" style="margin-top: 80px;">
+        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 text-center" style="background-color: rgba(250,250,250,0.6); padding-bottom: 50px; border-radius: 20px; padding-top: 20px;">
+          <h4>MATCH, ADOPT, LOVE</h4>
+          <h3>FIND YOUR IDEAL PET</h3>
+                  <h4>RATED 93% ACCURATE BY USERS</h4>
+          <hr>
+          <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center"><img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32" alt=""> Dog Match</a>
+          <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center"><img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32" alt=""> Cat Match</a>
+                  <h4 class="text-center" style="padding-bottom: 0; margin-bottom: 0; margin-top: 30px;"><a href="#work" style="color: #303030; text-decoration: underline; height: 200px;">How it works</a></h4>
+        </div>
+      </div>
+    </div>
+    ::after
+            <!--QuizFilter-->
+            </div>
+            <!-- Intro -->
+            
+        </section>
+        <!--Section: Design Block-->
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.UtcNow.Year - High Paw
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
