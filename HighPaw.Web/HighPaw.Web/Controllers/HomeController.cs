@@ -27,16 +27,19 @@
                     Shelter = p.Shelter.Address
                 })
                 .OrderBy(p => p.Id)
-                .Take(4)
+                .Take(3)
                 .ToList();
 
             return View(allPets);
         }
 
+        public IActionResult Work()
+            => View();
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

@@ -4,29 +4,61 @@
     ViewBag.Title = "Welcome";
 }
 
-@if (Model.Any())
-{
-            @foreach (var pet in Model)
-            {
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="@pet.ImageUrl"
-                 alt="@pet.Name @pet.Sex"
-                 class="img-fluid rounded-start" />
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@pet.Name</h5>
-                        <p class="card-text">
-                            @pet.Sex, @pet.Age
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">@pet.Shelter</small>
-                        </p>
+            <!-- Intro -->
+<div id="intro" class="bg-image" style="
+          background-image: url('home-page-cover.jpg');
+  position: relative;
+  background-size: 100%;
+  background-repeat: no-repeat;">
+ <div class="mask" style="padding-bottom: 30px;">
+                @*Jumbotron*@                
+                ::before
+      <div class="container" style="padding-top: 130px; padding-left: 80px;">
+        <div class="text-white">
+          <h1 class="mb-3" style="font-weight: 900;">ALL FOR LOVE</h1>
+          <h4 class="mb-3">Pets change our lives, let’s save theirs!</h4>
+          <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
+        </div>
+                <!--QuizFilter-->
+                <div class="container">
+                    <div class="clearfix" >
+                        <div class="col-md-5 float-md-end mb-2 ms-md-2 text-center" style="background-color: rgba(250,250,250,0.4); padding-bottom: 50px; border-radius: 20px; padding-top: 20px;">
+                            <h5>MATCH, ADOPT, LOVE</h5>
+                            <h3>FIND YOUR IDEAL PET</h3>
+                            <h5>RATED 93% ACCURATE BY USERS</h5>
+                            <hr>
+                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32" alt=""> Dog Match</a>
+                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32" alt=""> Cat Match</a>
+                            <h4 class="text-center" style="padding-bottom: 0; margin-bottom: 0; margin-top: 30px;"><a asp-controller="Home" asp-action="Work" style="color: #303030; text-decoration: underline; height: 200px;">How it works</a></h4>
+                        </div>
                     </div>
                 </div>
-        </div>
+      </div>
     </div>
-            }
+                <!--QuizFilter-->
+            </div>
+            <!-- Intro -->
+
+@if (Model.Any())
+{
+    <hr>
+    <h3 class="text-center display-4">-Featured Pets-</h3>
+    <hr>
+    <div class="row row-cols-4 row-cols-md-3 g-4">
+
+        @foreach (var pet in Model)
+        {
+
+            <div class="col-lg-4 mb-4">
+    <div class="card h-100">
+      <img src="@pet.ImageUrl" alt="@pet.Name @pet.Age" class="card-img-top" style="width: 100%; height: 15vw; object-fit: cover;">
+      <div class="card-body">
+        <h5 class="card-title text-center">@pet.Name</h5>
+        <p class="card-text text-center">Age: @pet.Age, Location: @pet.Shelter</p>
+       <a href="" class="btn btn-outline-success btn-sm text-center">Details</a>
+      </div>
+     </div>
+    </div>
+        }
+    </div>
 }

@@ -803,6 +803,10 @@
   margin: 3rem !important;
 }
 
+.m-6 {
+    margin: 5rem !important;
+}
+
 .m-auto {
   margin: auto !important;
 }
