@@ -110,7 +110,7 @@
                             Age = 8,
                             Color = "Brown/Chocolate",
                             SizeCategoryId = 3,
-                            Sex = "Female",
+                            Gender = "Female",
                             ShelterId = 3
                         },
                         new Pet()
@@ -122,7 +122,7 @@
                             Age = 1,
                             Color = "White",
                             SizeCategoryId = 1,
-                            Sex = "Female",
+                            Gender = "Female",
                             ShelterId = 1
                         },
                         new Pet()
@@ -134,7 +134,7 @@
                             Age = 4,
                             Color = "Brown/Chocolate",
                             SizeCategoryId = 3,
-                            Sex = "Female",
+                            Gender = "Female",
                             ShelterId = 2
                         },
                         new Pet()
@@ -146,7 +146,7 @@
                             Age = 2,
                             Color = "Black/White",
                             SizeCategoryId = 3,
-                            Sex = "Male",
+                            Gender = "Male",
                             ShelterId = 1
                         },
                         new Pet()
@@ -158,7 +158,7 @@
                             Age = 7,
                             Color = "Black/White",
                             SizeCategoryId = 2,
-                            Sex = "Female",
+                            Gender = "Female",
                             ShelterId = 2
                         },
                         new Pet()
@@ -170,7 +170,7 @@
                             Age = 10,
                             Color = "Brown/Chocolate",
                             SizeCategoryId = 3,
-                            Sex = "Male",
+                            Gender = "Male",
                             ShelterId = 3
                         },
                         new Pet()
@@ -182,7 +182,7 @@
                             Age = 1,
                             Color = "White",
                             SizeCategoryId = 1,
-                            Sex = "Female",
+                            Gender = "Female",
                             ShelterId = 3
                         },
                         new Pet()
@@ -194,7 +194,7 @@
                             Age = 1,
                             Color = "Orange/white",
                             SizeCategoryId = 1,
-                            Sex = "Male",
+                            Gender = "Male",
                             ShelterId = 1
                         },
                     });

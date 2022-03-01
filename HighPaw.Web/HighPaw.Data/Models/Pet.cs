@@ -1,8 +1,9 @@
 ﻿namespace HighPaw.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using HighPaw.Data.Models.Enums;
-    using static DataConstants;
+    using static DataConstants.Pet;
 
     public class Pet
     {
@@ -10,7 +11,7 @@
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(PetNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; init; }
 
         [Required]
@@ -26,8 +27,8 @@
         public int? Age { get; set; }
 
         [Required]
-        [MaxLength(SexMaxLength)]
-        public string Sex { get; set; }
+        [MaxLength(GenderMaxLength)]
+        public string Gender { get; set; }
 
         [Required]
         [MaxLength(ColorMaxLength)]
@@ -35,6 +36,10 @@
 
         [MaxLength(MicrochipIdMaxLength)]
         public string MicrochipId { get; set; }
+
+        public string FoundLocation { get; set; }
+
+        public DateTime FoundDate { get; set; }
 
         public bool IsAdopted { get; set; } = false;
 

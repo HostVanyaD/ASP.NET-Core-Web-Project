@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using HighPaw.Data.Models;
+    using Microsoft.AspNetCore.Identity;
 
     public class HighPawDbContext : IdentityDbContext
     {
@@ -38,6 +39,13 @@
                .WithMany(p => p.Pets)
                .HasForeignKey(c => c.SizeCategoryId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Volunteer>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Volunteer>(v => v.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

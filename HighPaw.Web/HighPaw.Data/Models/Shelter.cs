@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.Shelter;
 
     public class Shelter
     {
@@ -10,7 +10,7 @@
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(ShelterNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; init; }
 
         [Required]

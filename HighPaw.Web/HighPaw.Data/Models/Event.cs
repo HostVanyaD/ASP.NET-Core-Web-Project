@@ -1,7 +1,7 @@
 ﻿namespace HighPaw.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.EventAndArticle;
 
     public class Event
     {

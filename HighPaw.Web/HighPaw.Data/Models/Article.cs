@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using HighPaw.Data.Models.Enums;
-    using static DataConstants;
+    using static DataConstants.EventAndArticle;
 
     public class Article
     {

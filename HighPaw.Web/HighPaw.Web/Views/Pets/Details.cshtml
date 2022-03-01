@@ -1,0 +1,46 @@
+﻿@model PetDetailsViewModel
+
+<div data-v-6460b3f9="" class="row justify-center">
+    <div data-v-6460b3f9="" class="mr-0 col col-12">
+        <div data-v-6460b3f9="" class="row">
+            <div data-v-6460b3f9="" class="col-sm-8 col-12">
+                <div data-v-6460b3f9="" class="row no-gutters">
+                    <div data-v-6460b3f9="" class="col col-12">
+                        <h4 data-v-6460b3f9="" class="purple--text component-title">
+                            Pet Details
+                        </h4>
+                    </div> <div data-v-6460b3f9="" class="pr-md-4 pb-4 col-md-6 col-12"><p data-v-6460b3f9="" class="ptc-body-2 bold">Animal ID</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.Id</p></div> <div data-v-6460b3f9="" class="pl-md-4 pb-4 col-md-6 col-12"><p data-v-6460b3f9="" class="ptc-body-2 bold">Gender</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.Sex</p></div> <div data-v-6460b3f9="" class="pl-md-4 pb-4 col-md-6 col-12">
+                        <p data-v-6460b3f9="" class="ptc-body-2 bold">Microchip #</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.MicrochipId</p></div> <div data-v-6460b3f9="" class="pr-md-4 pb-4 col-md-6 col-12">
+                        <p data-v-6460b3f9="" class="ptc-body-2 bold">Found Location</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.FoundLocation</p>
+                    </div> <div data-v-6460b3f9="" class="pl-md-4 pb-4 col-md-6 col-12"><p data-v-6460b3f9="" class="ptc-body-2 bold">Found Date</p> <p data-v-6460b3f9="" class="ptc-body-2">TODO: ADD foundDate</p></div>
+                </div>
+            </div> <div data-v-6460b3f9="" class="col-sm-4 order-sm-last col-12 order-first"><div data-v-6460b3f9="" class="v-image v-responsive radius-8 theme--light"><div class="v-responsive__sizer" style="padding-bottom: 100%;"></div><div class="v-image__image v-image__image--cover" style="background-image: url(@Model.ImageUrl); background-position: center center;"></div><div class="v-responsive__content"></div></div></div>
+        </div> <div data-v-6460b3f9="" class="row no-gutters">
+            <div data-v-6460b3f9="" class="col col-12">
+                <h4 data-v-6460b3f9="" class="purple--text component-title">
+                    Location Details
+                </h4>
+            </div> <div data-v-6460b3f9="" class="col col-12">
+                <div data-v-6460b3f9="" class="row my-0">
+                    <div data-v-6460b3f9="" class="col-md-2 col-12"><div data-v-6460b3f9="" class="v-image v-responsive theme--light" style="max-width: 100px;"><div class="v-responsive__sizer" style="padding-bottom: 100%;"></div><div class="v-responsive__content"></div></div></div> <div data-v-6460b3f9="" class="col-md-10 col-12 ">
+                        <div data-v-6460b3f9="" class="row no-gutters">
+                            <div data-v-6460b3f9="" class="pr-md-4 pb-4 col-md-6 col-12"><p data-v-6460b3f9="" class="ptc-body-2 bold">Shelter Name</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.Shelter.Name</p></div> <div data-v-6460b3f9="" class="pl-md-4 pb-4 col-md-6 col-12">
+                                <p data-v-6460b3f9="" class="ptc-body-2 bold">Email</p> <p data-v-6460b3f9="" class="ptc-body-2">
+                                    <a data-v-6460b3f9="" href="mailto:adoptions@kittenangels.org?subject=Email this user">
+                                        @Model.Shelter.Email
+                                    </a>
+                                </p>
+                            </div> <div data-v-6460b3f9="" class="pr-md-4 pb-4 col-md-6 col-12"><p data-v-6460b3f9="" class="ptc-body-2 bold">Address</p> <p data-v-6460b3f9="" class="ptc-body-2">@Model.Shelter.Address</p></div> <div data-v-6460b3f9="" class="pl-md-4 col-md-6 col-12">
+                                <p data-v-6460b3f9="" class="ptc-body-2 bold">Phone #</p> <p data-v-6460b3f9="" class="ptc-link-1">
+                                    <a data-v-6460b3f9="" href="tel:518-281-3928">
+                                        @Model.Shelter.PhoneNumber
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!---->
+</div>

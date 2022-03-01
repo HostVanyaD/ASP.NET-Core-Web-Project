@@ -1,7 +1,8 @@
 ﻿namespace HighPaw.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.Volunteer;
 
     public class Volunteer
     {
@@ -22,5 +23,10 @@
 
         [Required]
         public string AllAboutYou { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        public ICollection<Pet> Pets { get; set; } = new HashSet<Pet>();
     }
 }

@@ -54,8 +54,9 @@
       <img src="@pet.ImageUrl" alt="@pet.Name @pet.Age" class="card-img-top" style="width: 100%; height: 15vw; object-fit: cover;">
       <div class="card-body">
         <h5 class="card-title text-center">@pet.Name</h5>
-        <p class="card-text text-center">Age: @pet.Age, Location: @pet.Shelter</p>
-       <a href="" class="btn btn-outline-success btn-sm text-center">Details</a>
+        <p class="card-text text-center">Age: @pet.Age, Sex:@pet.Sex,</p>
+        <p class="card-text text-center">Location: @pet.Shelter</p>
+       <a asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id" class="btn btn-outline-success btn-sm text-center">Details</a>
       </div>
      </div>
     </div>
