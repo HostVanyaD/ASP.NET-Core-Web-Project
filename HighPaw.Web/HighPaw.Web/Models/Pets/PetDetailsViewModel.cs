@@ -25,7 +25,11 @@
 
         public string FoundLocation { get; set; }
 
-        public DateTime FoundDate { get; set; } = DateTime.UtcNow;
+        public string LastSeenLocation { get; set; }
+
+        public string FoundDate { get; set; }
+
+        public string LostDate { get; set; }
 
         public bool IsAdopted { get; set; } = false;
 

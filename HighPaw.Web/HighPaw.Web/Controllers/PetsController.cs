@@ -5,6 +5,7 @@
     using HighPaw.Web.Models.Pets;
     using HighPaw.Web.Models.Shelters;
     using Microsoft.AspNetCore.Mvc;
+    using System.Globalization;
     using System.Linq;
 
     public class PetsController : Controller
@@ -38,6 +39,10 @@
                     IsAdopted = p.IsAdopted,
                     IsFound = p.IsFound,
                     IsLost = p.IsLost,
+                    FoundDate = p.FoundDate.ToString(),
+                    LostDate = p.LostDate.ToString(),
+                    FoundLocation = p.FoundLocation,
+                    LastSeenLocation = p.LastSeenLocation,
                     SizeCategory = p.SizeCategory.Name,
                     Shelter = new ShelterDetailsViewModel
                     {

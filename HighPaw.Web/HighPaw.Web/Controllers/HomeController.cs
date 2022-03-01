@@ -1,10 +1,8 @@
 ﻿namespace HighPaw.Web.Controllers
 {
     using HighPaw.Data;
-    using HighPaw.Web.Models;
     using HighPaw.Web.Models.Pets;
     using Microsoft.AspNetCore.Mvc;
-    using System.Diagnostics;
     using System.Linq;
 
     public class HomeController : Controller
@@ -23,6 +21,7 @@
                     Id = p.Id,
                     Name = p.Name,
                     Age = p.Age,
+                    Gender = p.Gender,
                     ImageUrl = p.ImageUrl,
                     Shelter = p.Shelter.Address
                 })
