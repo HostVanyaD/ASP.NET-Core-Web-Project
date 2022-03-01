@@ -106,7 +106,7 @@ namespace HighPaw.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("FoundDate")
+                    b.Property<DateTime?>("FoundDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FoundLocation")
@@ -129,6 +129,12 @@ namespace HighPaw.Data.Migrations
 
                     b.Property<bool>("IsLost")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastSeenLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LostDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MicrochipId")
                         .HasMaxLength(15)

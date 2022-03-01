@@ -1,6 +1,7 @@
 ﻿namespace HighPaw.Web.Models.Pets
 {
     using HighPaw.Web.Models.Shelters;
+    using System;
 
     public class PetDetailsViewModel
     {
@@ -16,13 +17,15 @@
 
         public int? Age { get; set; }
 
-        public string Sex { get; set; }
+        public string Gender { get; set; }
 
         public string Color { get; set; }
 
         public string MicrochipId { get; set; }
 
         public string FoundLocation { get; set; }
+
+        public DateTime FoundDate { get; set; } = DateTime.UtcNow;
 
         public bool IsAdopted { get; set; } = false;
 

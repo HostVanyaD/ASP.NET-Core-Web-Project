@@ -61,6 +61,8 @@
                            Description = "> 45kg"
                         }
                     });
+
+                data.SaveChanges();
             }
 
             if (!data.Shelters.Any())
@@ -95,6 +97,8 @@
                            Description = "FOUR PAWS is the strong, global and independent voice of animals that depend directly on humans. Our vision is a better world in which animals are not subjected to suffering and are raised with respect and understanding."
                         },
                     });
+
+                data.SaveChanges();
             }
 
             if (!data.Pets.Any())
@@ -104,7 +108,7 @@
                         new Pet()
                         {
                             Name = "Nikki",
-                            ImageUrl = "https://pet-uploads.adoptapet.com/c/8/4/582815365.jpg",
+                            ImageUrl = "https://cdn.pixabay.com/photo/2017/09/16/14/13/smile-2755616_1280.jpg",
                             PetType = PetType.Dog,
                             Breed = "Mix",
                             Age = 8,
@@ -140,7 +144,7 @@
                         new Pet()
                         {
                             Name = "Winston",
-                            ImageUrl = "https://pet-uploads.adoptapet.com/b/f/1/610269284.jpg",
+                            ImageUrl = "https://cdn.pixabay.com/photo/2019/02/22/22/34/dog-4014545_1280.jpg",
                             PetType = PetType.Dog,
                             Breed = "Husky/German Shepherd Dog Mix",
                             Age = 2,
@@ -198,9 +202,9 @@
                             ShelterId = 1
                         },
                     });
-            }
 
-            data.SaveChanges();
+                data.SaveChanges();
+            }
         }
     }
 }

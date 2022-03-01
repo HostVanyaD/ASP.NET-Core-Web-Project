@@ -114,22 +114,6 @@ namespace HighPaw.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Volunteers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AllAboutYou = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Volunteers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -236,6 +220,29 @@ namespace HighPaw.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Volunteers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AllAboutYou = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Volunteers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Volunteers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pets",
                 columns: table => new
                 {
@@ -246,14 +253,19 @@ namespace HighPaw.Data.Migrations
                     PetType = table.Column<int>(type: "int", nullable: false),
                     Breed = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: true),
-                    Sex = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     Color = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     MicrochipId = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     IsAdopted = table.Column<bool>(type: "bit", nullable: false),
                     IsLost = table.Column<bool>(type: "bit", nullable: false),
+                    LastSeenLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LostDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsFound = table.Column<bool>(type: "bit", nullable: false),
+                    FoundLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FoundDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     SizeCategoryId = table.Column<int>(type: "int", nullable: false),
-                    ShelterId = table.Column<int>(type: "int", nullable: false)
+                    ShelterId = table.Column<int>(type: "int", nullable: false),
+                    VolunteerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -270,6 +282,11 @@ namespace HighPaw.Data.Migrations
                         principalTable: "SizeCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pets_Volunteers_VolunteerId",
+                        column: x => x.VolunteerId,
+                        principalTable: "Volunteers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -320,6 +337,17 @@ namespace HighPaw.Data.Migrations
                 name: "IX_Pets_SizeCategoryId",
                 table: "Pets",
                 column: "SizeCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pets_VolunteerId",
+                table: "Pets",
+                column: "VolunteerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Volunteers_UserId",
+                table: "Volunteers",
+                column: "UserId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -349,19 +377,19 @@ namespace HighPaw.Data.Migrations
                 name: "Pets");
 
             migrationBuilder.DropTable(
-                name: "Volunteers");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Shelters");
 
             migrationBuilder.DropTable(
                 name: "SizeCategories");
+
+            migrationBuilder.DropTable(
+                name: "Volunteers");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

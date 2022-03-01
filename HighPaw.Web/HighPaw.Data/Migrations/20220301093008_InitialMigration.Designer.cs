@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HighPaw.Data.Migrations
 {
     [DbContext(typeof(HighPawDbContext))]
-    [Migration("20220228161828_PetModelUpdated")]
-    partial class PetModelUpdated
+    [Migration("20220301093008_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,11 +108,16 @@ namespace HighPaw.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("FoundDate")
+                    b.Property<DateTime?>("FoundDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FoundLocation")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -127,6 +132,12 @@ namespace HighPaw.Data.Migrations
                     b.Property<bool>("IsLost")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LastSeenLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LostDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("MicrochipId")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
@@ -139,15 +150,13 @@ namespace HighPaw.Data.Migrations
                     b.Property<int>("PetType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Sex")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
                     b.Property<int>("ShelterId")
                         .HasColumnType("int");
 
                     b.Property<int>("SizeCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VolunteerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -155,6 +164,8 @@ namespace HighPaw.Data.Migrations
                     b.HasIndex("ShelterId");
 
                     b.HasIndex("SizeCategoryId");
+
+                    b.HasIndex("VolunteerId");
 
                     b.ToTable("Pets");
                 });
@@ -244,7 +255,14 @@ namespace HighPaw.Data.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Volunteers");
                 });
@@ -465,9 +483,22 @@ namespace HighPaw.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("HighPaw.Data.Models.Volunteer", null)
+                        .WithMany("Pets")
+                        .HasForeignKey("VolunteerId");
+
                     b.Navigation("Shelter");
 
                     b.Navigation("SizeCategory");
+                });
+
+            modelBuilder.Entity("HighPaw.Data.Models.Volunteer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("HighPaw.Data.Models.Volunteer", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -527,6 +558,11 @@ namespace HighPaw.Data.Migrations
                 });
 
             modelBuilder.Entity("HighPaw.Data.Models.SizeCategory", b =>
+                {
+                    b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("HighPaw.Data.Models.Volunteer", b =>
                 {
                     b.Navigation("Pets");
                 });

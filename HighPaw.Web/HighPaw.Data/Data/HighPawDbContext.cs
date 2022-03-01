@@ -27,11 +27,11 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
-                .Entity<Pet>()
-                .HasOne(p => p.Shelter)
-                .WithMany(p => p.Pets)
-                .HasForeignKey(c => c.ShelterId)
-                .OnDelete(DeleteBehavior.Restrict);
+               .Entity<Pet>()
+               .HasOne(p => p.Shelter)
+               .WithMany(p => p.Pets)
+               .HasForeignKey(c => c.ShelterId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder
                .Entity<Pet>()
