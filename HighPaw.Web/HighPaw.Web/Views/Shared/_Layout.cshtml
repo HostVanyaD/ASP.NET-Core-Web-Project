@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HighPaw</title>
+    <title>@ViewBag.Title - HighPaw</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HighPaw.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
             <div class="container">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index"><span style="color: #5e9693;">High</span><span style="color: #fff;">Paw</span></a>
@@ -25,10 +24,7 @@
                             <a class="nav-link" href="#!">How to adopt</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#!">Adopt a pet</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">Lost pets</a>
+                            <a class="nav-link" asp-controller="Pets" asp-action="AllLost">Lost pets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#!">Found pets</a>
@@ -40,11 +36,12 @@
                             <a class="nav-link" href="#!">Contact</a>
                         </li>
                     </ul>
-                <partial name="_LoginPartial" />
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
         </nav>
-        <!-- Navbar -->
-       
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

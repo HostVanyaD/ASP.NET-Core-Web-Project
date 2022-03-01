@@ -1,12 +1,12 @@
 ﻿namespace HighPaw.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
     using HighPaw.Data;
     using HighPaw.Data.Models.Enums;
     using HighPaw.Web.Models.Pets;
     using HighPaw.Web.Models.Shelters;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Globalization;
-    using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
 
     public class PetsController : Controller
     {
@@ -35,7 +35,7 @@
                     Breed = p.Breed,
                     Gender = p.Gender,
                     Color = p.Color,
-                    MicrochipId = p.MicrochipId != null ? p.MicrochipId : "Not info available",
+                    MicrochipId = p.MicrochipId ?? "Not info available",
                     IsAdopted = p.IsAdopted,
                     IsFound = p.IsFound,
                     IsLost = p.IsLost,
@@ -60,6 +60,53 @@
             {
                 return RedirectToAction("Home", "Error");
             }
+
+            return View(pet);
+        }
+
+        public IActionResult AllLost()
+        {
+            var lostPets = this.data
+                .Pets
+                .Where(p => p.IsLost == true)
+                .Select(p => new PetListingViewModel
+                {
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Age = p.Age,
+                    Gender = p.Gender,
+                    Shelter = p.Shelter.Name
+                })
+                .ToList();
+
+            return View(lostPets);
+        }
+
+        [Authorize]
+        public IActionResult AdoptMe(int id)
+        {
+            var petToAdopt = this.data
+                .Pets
+                .Find(id);
+
+            petToAdopt.IsAdopted = true;
+
+            this.data.Update(petToAdopt);
+            this.data.SaveChanges();
+
+            var pet = this.data
+                .Pets
+                .Where(p => p.Id == id)
+                .Select(p => new AdoptedPetViewModel
+                {
+                    Name = p.Name,
+                    Age = p.Age,
+                    Gender = p.Gender,
+                    ImageUrl = p.ImageUrl,
+                    Shelter = p.Shelter.Name
+                })
+                .FirstOrDefault();
 
             return View(pet);
         }

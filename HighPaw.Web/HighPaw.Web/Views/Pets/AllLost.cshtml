@@ -1,0 +1,31 @@
+﻿@model List<PetListingViewModel>
+
+@{
+    ViewBag.Title = "Lost Pets";
+}
+
+@if(Model.Any())
+{
+    <div class="row row-cols-4 row-cols-md-3 g-4"> 
+    @foreach(var pet in Model)
+        {
+           @* <div class="col-lg-4 mb-4" style="margin: 10rem 0 3rem 0;">
+            <div class="card h-100">
+                <img src="@pet.ImageUrl" alfont-synthesis-weightet.Name @pet.Age" class="card-img-top" style="width: 100%; height: 15vw; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title text-center">@pet.Name</h5>
+                    <p class="card-text text-center">Age: @pet.Age, Gender: @pet.Gender,</p>
+                    <p class="card-text text-center">Location: @pet.Shelter</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-success" asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        }
+    </div>
+}
+@if(!Model.Any())
+{
+    <h1 class="text-center" style="margin: 10rem 0 3rem 0; font-size: 4.5rem; font-weight: 300; line-height: inherit">No lost pets found</h1>
+}

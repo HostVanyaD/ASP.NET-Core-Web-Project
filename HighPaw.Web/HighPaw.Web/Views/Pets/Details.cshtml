@@ -1,5 +1,9 @@
 ﻿@model PetDetailsViewModel
 
+@{
+    ViewBag.Title = "Details";
+}
+
 <article class="postcard light green">
     <a class="postcard__img_link" href="#">
         <img class="postcard__img" src="@Model.ImageUrl" alt="@Model.PetType @Model.Name" />
@@ -45,7 +49,7 @@
         {
             <ul class="postcard__tagbox">
             <li class="tag__item play green">
-                <a asp-controller="Pets" asp-action="Adopt" asp-route-id="@Model.Id">
+                <a asp-controller="Pets" asp-action="AdoptMe" asp-route-id="@Model.Id">
                     <i class="fas fa-home mr-2"></i>Adopt me</a>
             </li>
         </ul>
