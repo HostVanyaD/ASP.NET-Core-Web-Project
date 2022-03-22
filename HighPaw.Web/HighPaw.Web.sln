@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighPaw.Web", "HighPaw.Web\HighPaw.Web.csproj", "{EE87ECF6-67ED-4DAF-9E0A-2D11FFD3D163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighPaw.Web", "HighPaw.Web\HighPaw.Web.csproj", "{EE87ECF6-67ED-4DAF-9E0A-2D11FFD3D163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighPaw.Data", "HighPaw.Data\HighPaw.Data.csproj", "{CF999130-50B0-43F6-9C22-AE9D41FE5B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighPaw.Data", "HighPaw.Data\HighPaw.Data.csproj", "{CF999130-50B0-43F6-9C22-AE9D41FE5B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighPaw.Services", "HighPaw.Services\HighPaw.Services.csproj", "{F2FB7F86-4F8D-4E6A-9153-4B128C340B00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CF999130-50B0-43F6-9C22-AE9D41FE5B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF999130-50B0-43F6-9C22-AE9D41FE5B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF999130-50B0-43F6-9C22-AE9D41FE5B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FB7F86-4F8D-4E6A-9153-4B128C340B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FB7F86-4F8D-4E6A-9153-4B128C340B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FB7F86-4F8D-4E6A-9153-4B128C340B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FB7F86-4F8D-4E6A-9153-4B128C340B00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
