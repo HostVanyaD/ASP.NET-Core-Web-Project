@@ -1,4 +1,5 @@
 using HighPaw.Data;
+using HighPaw.Data.Models;
 using HighPaw.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,7 @@ builder
     .AddDbContext<HighPawDbContext>(options =>
         options.UseSqlServer(connectionString))
     .AddDatabaseDeveloperPageExceptionFilter()
-    .AddDefaultIdentity<IdentityUser>(options =>
+    .AddDefaultIdentity<User>(options =>
     {
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;

@@ -3,9 +3,8 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using HighPaw.Data.Models;
-    using Microsoft.AspNetCore.Identity;
 
-    public class HighPawDbContext : IdentityDbContext
+    public class HighPawDbContext : IdentityDbContext<User>
     {
         public HighPawDbContext(DbContextOptions<HighPawDbContext> options)
             : base(options)
@@ -42,7 +41,7 @@
 
             builder
                 .Entity<Volunteer>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Volunteer>(v => v.UserId)
                 .OnDelete(DeleteBehavior.Restrict);

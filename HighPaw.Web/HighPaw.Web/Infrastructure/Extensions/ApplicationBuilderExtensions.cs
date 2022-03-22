@@ -1,14 +1,18 @@
 ﻿namespace HighPaw.Web.Infrastructure.Extensions
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System;
+    using Microsoft.AspNetCore.Identity;
     using HighPaw.Data;
     using HighPaw.Data.Models;
     using HighPaw.Data.Models.Enums;
+
+    using static Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtensions
     {
@@ -38,7 +42,25 @@
 
             if (!data.SizeCategories.Any())
             {
-                data.SizeCategories.AddRange(new List<SizeCategory>()
+                SeedCategories(data);
+            }
+
+            if (!data.Shelters.Any())
+            {
+                SeedShelters(data);
+            }
+
+            if (!data.Pets.Any())
+            {
+                SeedPets(data);
+            }
+
+            SeedAdministrator(services);
+        }
+
+        private static void SeedCategories(HighPawDbContext data)
+        {
+            data.SizeCategories.AddRange(new List<SizeCategory>()
                     {
                         new SizeCategory() // 1
                         {
@@ -62,12 +84,12 @@
                         }
                     });
 
-                data.SaveChanges();
-            }
+            data.SaveChanges();
+        }
 
-            if (!data.Shelters.Any())
-            {
-                data.Shelters.AddRange(new List<Shelter>()
+        private static void SeedShelters(HighPawDbContext data)
+        {
+            data.Shelters.AddRange(new List<Shelter>()
                     {
                         new Shelter() // 1
                         {
@@ -98,12 +120,12 @@
                         },
                     });
 
-                data.SaveChanges();
-            }
+            data.SaveChanges();
+        }
 
-            if (!data.Pets.Any())
-            {
-                data.Pets.AddRange(new List<Pet>()
+        private static void SeedPets(HighPawDbContext data)
+        {
+            data.Pets.AddRange(new List<Pet>()
                     {
                         new Pet()
                         {
@@ -203,8 +225,42 @@
                         },
                     });
 
-                data.SaveChanges();
-            }
+            data.SaveChanges();
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<User>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(AdminRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = AdminRoleName };
+
+                    await roleManager.CreateAsync(role);
+
+                    const string adminEmail = "admin@admin.com";
+                    const string adminPassword = "admin123";
+                    const string adminUserName = "Admin";
+
+                    var user = new User
+                    {
+                        Email = adminEmail,
+                        UserName = adminUserName,
+                        FullName = adminUserName
+                    };
+
+                    await userManager.CreateAsync(user, adminPassword);
+
+                    await userManager.AddToRoleAsync(user, AdminRoleName);
+                })
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }
