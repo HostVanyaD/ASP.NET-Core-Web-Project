@@ -4,9 +4,14 @@
     ViewBag.Title = "Lost Pets";
 }
 
+<div class="d-grid gap-2" style="margin-top: 5rem">
+  <a type="button" class="btn btn-outline-warning btn-rounded" data-mdb-ripple-color="dark" asp-controller="Pets" asp-action="AddLostPet">I Lost My Pet</a>
+</div>
+
+
 @if(Model.Any())
 {
-    <div class="row row-cols-4 row-cols-md-3 g-4" style="margin-top: 5rem"> 
+    <div class="row row-cols-4 row-cols-md-3 g-4" style="margin-top: 1rem"> 
     @foreach (var pet in Model)
         {
             <div class="col-lg-4 mb-4">

@@ -110,5 +110,18 @@
 
             return View(pet);
         }
+
+        [Authorize]
+        public IActionResult AddPet()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddPet(AddPetFormModel pet)
+        {
+            return View();
+        }
     }
 }
