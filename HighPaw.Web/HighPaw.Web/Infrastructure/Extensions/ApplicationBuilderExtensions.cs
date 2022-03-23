@@ -232,6 +232,7 @@
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
             Task
                 .Run(async () =>
                 {
@@ -246,18 +247,17 @@
 
                     const string adminEmail = "admin@admin.com";
                     const string adminPassword = "admin123";
-                    const string adminUserName = "Admin";
 
                     var user = new User
                     {
                         Email = adminEmail,
-                        UserName = adminUserName,
-                        FullName = adminUserName
+                        UserName = adminEmail,
+                        FullName = "Admin"
                     };
 
                     await userManager.CreateAsync(user, adminPassword);
 
-                    await userManager.AddToRoleAsync(user, AdminRoleName);
+                    await userManager.AddToRoleAsync(user, role.Name);
                 })
                 .GetAwaiter()
                 .GetResult();

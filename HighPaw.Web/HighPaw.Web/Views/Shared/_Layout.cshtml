@@ -20,23 +20,26 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">How to adopt</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pets" asp-action="AllLost">Lost pets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">Found pets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">Contact</a>
-                        </li>
-                    </ul>
+                    @if (!User.IsAdmin())
+                    {
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!">How to adopt</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Pets" asp-action="AllLost">Lost pets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Pets" asp-action="AllFound">Found pets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!">Contact</a>
+                            </li>
+                        </ul>
+                    }                   
                     <partial name="_LoginPartial" />
                 </div>
             </div>

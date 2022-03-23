@@ -5,6 +5,8 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
+    using static Areas.Admin.AdminConstants;
+
     public class HomeController : Controller
     {
         private readonly HighPawDbContext data;
@@ -14,6 +16,11 @@
 
         public IActionResult Index()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
             var allPets = this.data
                 .Pets
                 .Select(p => new PetListingViewModel

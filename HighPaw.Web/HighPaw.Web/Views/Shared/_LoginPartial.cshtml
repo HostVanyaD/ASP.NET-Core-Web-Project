@@ -4,7 +4,7 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.Id();
@@ -12,16 +12,16 @@
         var userIsVolunteer = false;
         var userIsAdmin = User.IsAdmin();
 
-        <li class="nav-item">
+        <li class="nav-item justify-content-end">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @user.FullName!</a>
         </li>
         if (!userIsAdmin && !userIsVolunteer)
         {
-            <li class="nav-item">
+            <li class="nav-item justify-content-end">
                 <a class="nav-link" asp-controller="Volunteers" asp-action="Become">Become a volunteer</a>
             </li>
         }
-        <li class="nav-item">
+        <li class="nav-item justify-content-end">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
