@@ -1,5 +1,6 @@
 using HighPaw.Data;
 using HighPaw.Data.Models;
+using HighPaw.Services.Pet;
 using HighPaw.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +29,18 @@ builder
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HighPawDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder
+    .Services
+    .AddControllersWithViews();
+
+builder
+    .Services
+    .AddAutoMapper(typeof(Program));
+
+// App services
+builder
+    .Services
+    .AddTransient<IPetService, PetService>();
 
 var app = builder.Build();
 

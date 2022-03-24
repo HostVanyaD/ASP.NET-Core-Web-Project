@@ -1,4 +1,4 @@
-﻿@model List<PetListingViewModel>
+﻿@model List<LatestPetServiceModel>
 
 @{
     ViewBag.Title = "Welcome";
@@ -57,7 +57,7 @@ margin-top: 5rem">
                     <div class="card-body">
                         <h5 class="card-title text-center">@pet.Name</h5>
                         <p class="card-text text-center">Age: @pet.Age, Gender: @pet.Gender,</p>
-                        <p class="card-text text-center">Location: @pet.Shelter</p>
+                        <p class="card-text text-center">Location: @pet.ShelterName</p>
                         <div class="d-grid gap-2">
                             <a class="btn btn-outline-success" asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id">Details</a>
                         </div>

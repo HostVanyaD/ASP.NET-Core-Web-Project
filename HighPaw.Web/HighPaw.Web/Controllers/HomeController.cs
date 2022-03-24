@@ -1,18 +1,16 @@
 ﻿namespace HighPaw.Web.Controllers
 {
-    using HighPaw.Data;
-    using HighPaw.Web.Models.Pets;
+    using HighPaw.Services.Pet;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     using static Areas.Admin.AdminConstants;
 
     public class HomeController : Controller
     {
-        private readonly HighPawDbContext data;
+        private readonly IPetService pets;
 
-        public HomeController(HighPawDbContext data)
-            => this.data = data;
+        public HomeController(IPetService pets)
+            => this.pets = pets;
 
         public IActionResult Index()
         {
@@ -21,20 +19,7 @@
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
 
-            var allPets = this.data
-                .Pets
-                .Select(p => new PetListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Age = p.Age,
-                    Gender = p.Gender,
-                    ImageUrl = p.ImageUrl,
-                    Shelter = p.Shelter.Address
-                })
-                .OrderBy(p => p.Id)
-                .Take(3)
-                .ToList();
+            var allPets = this.pets.Latest();
 
             return View(allPets);
         }

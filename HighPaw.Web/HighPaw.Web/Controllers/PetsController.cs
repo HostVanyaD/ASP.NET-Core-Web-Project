@@ -76,7 +76,7 @@
                     Name = p.Name,
                     Age = p.Age,
                     Gender = p.Gender,
-                    Shelter = p.Shelter.Name
+                    ShelterName = p.Shelter.Name
                 })
                 .ToList();
 

@@ -12,6 +12,6 @@
 
         public string Gender { get; set; }
 
-        public string Shelter { get; set; }
+        public string ShelterName { get; set; }
     }
 }
