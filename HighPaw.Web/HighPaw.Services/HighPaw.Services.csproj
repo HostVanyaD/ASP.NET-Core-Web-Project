@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Volunteers\" />
-    <Folder Include="Pets\" />
+    <Folder Include="Volunteer\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HighPaw.Data\HighPaw.Data.csproj" />
   </ItemGroup>
 
 </Project>

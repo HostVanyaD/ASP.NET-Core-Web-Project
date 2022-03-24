@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HighPaw.Data\HighPaw.Data.csproj" />
+    <ProjectReference Include="..\HighPaw.Services\HighPaw.Services.csproj" />
   </ItemGroup>
 
 </Project>
