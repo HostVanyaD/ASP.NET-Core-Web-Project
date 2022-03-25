@@ -1,6 +1,7 @@
 using HighPaw.Data;
 using HighPaw.Data.Models;
 using HighPaw.Services.Pet;
+using HighPaw.Services.Shelter;
 using HighPaw.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -40,7 +41,8 @@ builder
 // App services
 builder
     .Services
-    .AddTransient<IPetService, PetService>();
+    .AddTransient<IPetService, PetService>()
+    .AddTransient<IShelterService, ShelterService>();
 
 var app = builder.Build();
 

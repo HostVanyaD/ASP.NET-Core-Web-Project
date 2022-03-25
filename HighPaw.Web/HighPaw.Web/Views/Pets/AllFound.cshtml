@@ -1,13 +1,16 @@
-﻿@model List<PetListingViewModel>
+﻿@model List<PetListingServiceModel>
 
 @{
-    ViewBag.Title = "Lost Pets";
+    ViewBag.Title = "Found Pets";
 }
+<div class="d-grid gap-2" style="margin-top: 5rem">
+    <a type="button" class="btn btn-outline-warning btn-rounded" data-mdb-ripple-color="dark" asp-controller="Pets" asp-action="Add">I Found A Pet</a>
+</div>
 
-@if(Model.Any())
+@if (Model.Any())
 {
-    <div class="row row-cols-4 row-cols-md-3 g-4" style="margin-top: 5rem"> 
-    @foreach (var pet in Model)
+    <div class="row row-cols-4 row-cols-md-3 g-4" style="margin-top: 5rem">
+        @foreach (var pet in Model)
         {
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">
@@ -25,7 +28,7 @@
         }
     </div>
 }
-@if(!Model.Any())
+@if (!Model.Any())
 {
     <h1 class="text-center" style="margin: 10rem 0 3rem 0; font-size: 4.5rem; font-weight: 300; line-height: inherit">No pets found</h1>
 }

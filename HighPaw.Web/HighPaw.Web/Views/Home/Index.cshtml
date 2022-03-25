@@ -1,4 +1,4 @@
-﻿@model List<LatestPetServiceModel>
+﻿@model List<PetListingServiceModel>
 
 @{
     ViewBag.Title = "Welcome";
@@ -22,19 +22,19 @@ margin-top: 5rem">
             </div>
             <!--QuizFilter-->
             <section>
-            <div class="container d-none d-lg-block d-xl-block d-xxl-block">
-                <div class="clearfix">
-                    <div class="col-md-3 col-lg-5 float-md-end mb-2 ms-md-2 text-center" style="background-color: rgba(250,250,250,0.4); padding-bottom: 1rem; border-radius: 20px; padding-top: 20px;">
-                        <h5>MATCH, ADOPT, LOVE</h5>
-                        <h3>FIND YOUR IDEAL PET</h3>
-                        <h5>RATED 93% ACCURATE BY USERS</h5>
-                        <hr>
-                        <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32" alt=""> Dog Match</a>
-                        <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32" alt=""> Cat Match</a>
-                        <h4 class="text-center" style="padding-bottom: 0; margin-bottom: 0; margin-top: 30px;"><a asp-controller="Home" asp-action="Work" style="color: #303030; text-decoration: underline; height: 200px;">How it works</a></h4>
+                <div class="container d-none d-lg-block d-xl-block d-xxl-block">
+                    <div class="clearfix">
+                        <div class="col-md-3 col-lg-5 float-md-end mb-2 ms-md-2 text-center" style="background-color: rgba(250,250,250,0.4); padding-bottom: 1rem; border-radius: 20px; padding-top: 20px;">
+                            <h5>MATCH, ADOPT, LOVE</h5>
+                            <h3>FIND YOUR IDEAL PET</h3>
+                            <h5>RATED 93% ACCURATE BY USERS</h5>
+                            <hr>
+                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32" alt=""> Dog Match</a>
+                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32" alt=""> Cat Match</a>
+                            <h4 class="text-center" style="padding-bottom: 0; margin-bottom: 0; margin-top: 30px;"><a asp-controller="Home" asp-action="Work" style="color: #303030; text-decoration: underline; height: 200px;">How it works</a></h4>
+                        </div>
                     </div>
                 </div>
-            </div>
             </section>
         </div>
     </div>
@@ -44,7 +44,7 @@ margin-top: 5rem">
 @if (Model.Any())
 {
     <hr>
-    <h3 class="text-center display-4">-Featured Pets-</h3>
+    <h3 class="text-center display-4">-Recently Uploaded Pets-</h3>
     <hr>
     <div class="row row-cols-4 row-cols-md-3 g-4">
 
@@ -65,5 +65,8 @@ margin-top: 5rem">
                 </div>
             </div>
         }
+    </div>
+    <div class="d-grid gap-2">
+        <a class="btn btn-outline-warning" asp-controller="Pets" asp-action="All">View All</a>
     </div>
 }

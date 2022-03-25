@@ -36,6 +36,25 @@ html {
     background-color: #cbbcb1;
 }
 
+.v-responsive__sizer {
+    transition: padding-bottom .2s cubic-bezier(.25,.8,.5,1);
+    flex: 1 0 0px;
+}
+
+.v-image__image, .v-image__placeholder {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.v-responsive__content {
+    flex: 1 0 0px;
+    max-width: 100%;
+}
+
 
 /*Quiz*/
 *::before,
@@ -400,4 +419,27 @@ a, a:hover {
     .yellow:nth-child(2n)::before {
         background-image: linear-gradient(80deg, rgba(189, 187, 73, 0.1), transparent 50%);
     }
+}
+
+.error-body {
+    max-width: 980px;
+    padding: 360px 0;
+    background-image: url(../cat-and-dog-404page.jpg);
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.error-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.error-actions {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.error-actions .btn {
+    margin-right: 10px;
 }

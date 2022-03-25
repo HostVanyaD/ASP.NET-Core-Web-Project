@@ -1,19 +1,23 @@
 ﻿namespace HighPaw.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
-    using HighPaw.Data;
-    using HighPaw.Data.Models.Enums;
-    using HighPaw.Web.Models.Pets;
-    using HighPaw.Web.Models.Shelters;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using HighPaw.Services.Pet;
+    using HighPaw.Services.Shelter;
+    using HighPaw.Web.Models.Pets;
 
     public class PetsController : Controller
     {
-        private readonly HighPawDbContext data;
+        private readonly IPetService pets;
+        private readonly IShelterService shelters;
 
-        public PetsController(HighPawDbContext data)
-            => this.data = data;
+        public PetsController(
+            IPetService pets,
+            IShelterService shelters)
+        {
+            this.pets = pets;
+            this.shelters = shelters;
+        }
 
         public IActionResult Index()
         {
@@ -22,43 +26,11 @@
 
         public IActionResult Details(int id)
         {
-            var pet = this.data
-                .Pets
-                .Where(p => p.Id == id)
-                .Select(p => new PetDetailsViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Age = p.Age,
-                    PetType = p.PetType == PetType.Dog ? "Dog" : "Cat",
-                    Breed = p.Breed,
-                    Gender = p.Gender,
-                    Color = p.Color,
-                    MicrochipId = p.MicrochipId ?? "Not info available",
-                    IsAdopted = p.IsAdopted,
-                    IsFound = p.IsFound,
-                    IsLost = p.IsLost,
-                    FoundDate = p.FoundDate.ToString(),
-                    LostDate = p.LostDate.ToString(),
-                    FoundLocation = p.FoundLocation,
-                    LastSeenLocation = p.LastSeenLocation,
-                    SizeCategory = p.SizeCategory.Name,
-                    Shelter = new ShelterDetailsViewModel
-                    {
-                        Id = p.Shelter.Id,
-                        Name = p.Shelter.Name,
-                        Address = p.Shelter.Address,
-                        PhoneNumber = p.Shelter.PhoneNumber,
-                        Website = p.Shelter.Website
-                    }
-                        
-                })
-                .FirstOrDefault();
+            var pet = this.pets.Details(id);
 
             if (pet == null)
             {
-                return RedirectToAction("Home", "Error");
+                return RedirectToAction("Error", "Home");
             }
 
             return View(pet);
@@ -66,62 +38,76 @@
 
         public IActionResult AllLost()
         {
-            var lostPets = this.data
-                .Pets
-                .Where(p => p.IsLost == true)
-                .Select(p => new PetListingViewModel
-                {
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    Age = p.Age,
-                    Gender = p.Gender,
-                    ShelterName = p.Shelter.Name
-                })
-                .ToList();
+            var lostPets = this.pets.AllLost();
 
             return View(lostPets);
+        }
+
+        public IActionResult AllFound()
+        {
+            var foundPets = this.pets.AllFound();
+
+            return View(foundPets);
         }
 
         [Authorize]
         public IActionResult AdoptMe(int id)
         {
-            var petToAdopt = this.data
-                .Pets
-                .Find(id);
+            this.pets.Adopt(id);
 
-            petToAdopt.IsAdopted = true;
-
-            this.data.Update(petToAdopt);
-            this.data.SaveChanges();
-
-            var pet = this.data
-                .Pets
-                .Where(p => p.Id == id)
-                .Select(p => new AdoptedPetViewModel
-                {
-                    Name = p.Name,
-                    Age = p.Age,
-                    Gender = p.Gender,
-                    ImageUrl = p.ImageUrl,
-                    Shelter = p.Shelter.Name
-                })
-                .FirstOrDefault();
+            var pet = this.pets.Details(id);
 
             return View(pet);
         }
 
         [Authorize]
-        public IActionResult AddPet()
+        public IActionResult Add()
         {
-            return View();
+            return View(new AddPetFormModel
+            {
+                Categories = this.pets.AllCategories(),
+                Shelters = this.shelters.AllShelters()
+            });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddPet(AddPetFormModel pet)
+        public IActionResult Add(AddPetFormModel pet)
         {
-            return View();
+            if (!this.pets.CategoryExists(pet.SizeCategoryId))
+            {
+                this.ModelState.AddModelError(nameof(pet.SizeCategoryId), "Category does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                pet.Categories = this.pets.AllCategories();
+                pet.Shelters = this.shelters.AllShelters();
+
+                return View(pet);
+            }
+
+            var petId = this.pets
+                .Add(
+                pet.Name,
+                pet.ImageUrl,
+                pet.PetType,
+                pet.Breed,
+                pet.Age,
+                pet.Gender,
+                pet.Color,
+                pet.MicrochipId,
+                pet.IsLost,
+                pet.LastSeenLocation,
+                pet.LostDate,
+                pet.IsFound,
+                pet.FoundLocation,
+                pet.FoundDate,
+                pet.SizeCategoryId,
+                pet.ShelterId
+                );
+
+            return RedirectToAction(nameof(this.AllFound));
         }
     }
 }

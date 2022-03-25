@@ -16,6 +16,10 @@
             public const int GenderMaxLength = 6;
             public const int ColorMaxLength = 20;
 
+            public const string NameErrorMessage = "Name must be between {2} and {1} characters long.";
+            public const string BreedErrorMessage = "Breed must be between {2} and {1} characters long.";
+            public const string MicrochipErrorMessage = "Microchip must be between {2} and {1} characters long.";
+
         }
 
         public class Shelter
