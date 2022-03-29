@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PetArticleServiceModel
+
+@{
     ViewBag.Title = "Admin area";
 }
 
@@ -38,13 +40,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var pet in @Model.Pets)
+                   {
                     <tr>
-                        <th scope="row">Id number here</th>
-                        <td>Name here</td>
-                        <td>Type here</td>
-                        <td>Lost or found here</td>
+                        <th scope="row">@pet.Id</th>
+                        <td>@pet.Name</td>
+                        <td>@pet.Type</td>
+                        <td>@pet.LostOrFound</td>
                     </tr>
-
+                   }
                 </tbody>
             </table>
 

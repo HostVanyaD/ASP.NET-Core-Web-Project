@@ -19,9 +19,9 @@
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
 
-            var allPets = this.pets.Latest();
+            var latestPets = this.pets.Latest();
 
-            return View(allPets);
+            return View(latestPets);
         }
 
         public IActionResult Work()

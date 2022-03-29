@@ -3,6 +3,7 @@
     using AutoMapper;
     using HighPaw.Data.Models;
     using HighPaw.Data.Models.Enums;
+    using HighPaw.Services.Admin.Models;
     using HighPaw.Services.Pet.Models;
     using HighPaw.Services.Shelter.Models;
 
@@ -26,6 +27,12 @@
                 .ForMember(pd => pd.PetType, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? "Dog" : "Cat"))
                 .ForMember(pd => pd.MicrochipId, cfg => cfg.MapFrom(p => p.MicrochipId ?? "Not info available"))
                 .ForMember(pd => pd.Shelter, cfg => cfg.MapFrom(p => p.Shelter));
+
+            this.CreateMap<Pet, AdminPetListingServiceModel>()
+                .ReverseMap();
+
+            this.CreateMap<Article, AdminArticleListingServiceModel>()
+                .ReverseMap();
 
             //this.CreateMap<CarDetailsServiceModel, CarFormModel>();
 

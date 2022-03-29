@@ -1,5 +1,6 @@
 using HighPaw.Data;
 using HighPaw.Data.Models;
+using HighPaw.Services.Admin;
 using HighPaw.Services.Pet;
 using HighPaw.Services.Shelter;
 using HighPaw.Web.Infrastructure.Extensions;
@@ -41,6 +42,7 @@ builder
 // App services
 builder
     .Services
+    .AddTransient<IAdminService, AdminService>()
     .AddTransient<IPetService, PetService>()
     .AddTransient<IShelterService, ShelterService>();
 
