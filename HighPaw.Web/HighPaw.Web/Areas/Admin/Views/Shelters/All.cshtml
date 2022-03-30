@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ShelterServiceModel>
+
+@{
+    ViewBag.Title = "Shelters Administration";
+}
+
+<partial name="_PageTitlePartial" />
+
+<section class="py-9 pt-md-5">
+    <div class="container">
+        <partial name="_AdminMenuPartial" />
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">PhoneNumber</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Website</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shelter in Model)
+                    {
+                        <tr>
+                            <td scope="col">@shelter.Id</td>
+                            <td scope="col">@shelter.Name</td>
+                            <td scope="col">@shelter.Address</td>
+                            <td scope="col">@shelter.Email</td>
+                            <td scope="col">@shelter.PhoneNumber</td>
+                            <td scope="col">@shelter.Description</td>
+                            <td scope="col">@shelter.Website</td>
+                            <td scope="col"> 
+                                <a asp-controller="Shelters" asp-action="Delete" asp-route-id="@shelter.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

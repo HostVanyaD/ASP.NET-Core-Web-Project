@@ -34,8 +34,7 @@
                         <td>@pet.LostOrFound</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-start">
-                                <a class="btn btn-outline-success" >Delete</a> |
-                                <a class="btn btn-outline-info" >Edit</a>
+                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id" class="btn btn-outline-success">Delete</a>
                             </div>
                         </td>
                     </tr>

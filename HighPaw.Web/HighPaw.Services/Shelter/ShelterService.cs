@@ -19,7 +19,7 @@
             this.mapper = mapper.ConfigurationProvider;
         }
 
-        public IEnumerable<ShelterNameServiceModel> GetAll()
+        public IEnumerable<ShelterNameServiceModel> GetAllNames()
             => this.data
                 .Shelters
                 .ProjectTo<ShelterNameServiceModel>(this.mapper)
@@ -48,5 +48,11 @@
 
             return shelterData.Id;
         }
+
+        public IEnumerable<ShelterServiceModel> GetAll()
+             => this.data
+                .Shelters
+                .ProjectTo<ShelterServiceModel>(this.mapper)
+                .ToList();
     }
 }

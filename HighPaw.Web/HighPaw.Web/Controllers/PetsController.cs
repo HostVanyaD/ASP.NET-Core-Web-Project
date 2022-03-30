@@ -66,7 +66,7 @@
             return View(new AddPetFormModel
             {
                 Categories = this.pets.AllCategories(),
-                Shelters = this.shelters.GetAll()
+                Shelters = this.shelters.GetAllNames()
             });
         }
 
@@ -82,7 +82,7 @@
             if (!ModelState.IsValid)
             {
                 pet.Categories = this.pets.AllCategories();
-                pet.Shelters = this.shelters.GetAll();
+                pet.Shelters = this.shelters.GetAllNames();
 
                 return View(pet);
             }

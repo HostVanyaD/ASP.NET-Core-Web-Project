@@ -18,17 +18,6 @@
             return View(allPets);
         }
 
-        public IActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //[HttpPost]
-        //public IActionResult Edit()
-        //{
-        //    return View();
-        //}
-
         public IActionResult Delete(int id)
         {
             var isDeleteSuccessfull = this.pets.Delete(id);
