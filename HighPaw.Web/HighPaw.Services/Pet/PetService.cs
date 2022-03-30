@@ -37,6 +37,7 @@
                 .ProjectTo<PetDetailsServiceModel>(this.mapper)
                 .FirstOrDefault();
 
+
         public IEnumerable<PetListingServiceModel> AllLost()
             => this.data
                 .Pets
@@ -116,6 +117,30 @@
             this.data.SaveChanges();
 
             return petData.Id;
+        }
+
+        // Admin services
+        public IEnumerable<PetListingServiceModel> All()
+        => this.data
+                .Pets
+                .ProjectTo<PetListingServiceModel>(this.mapper)
+                .ToList();
+
+        public bool Delete(int id)
+        {
+            var petToDelete = this.data
+                .Pets
+                .Find(id);
+
+            if(petToDelete is null)
+            {
+                return false;
+            }
+
+            this.data.Remove(petToDelete);
+            this.data.SaveChanges();
+
+            return true;
         }
     }
 }

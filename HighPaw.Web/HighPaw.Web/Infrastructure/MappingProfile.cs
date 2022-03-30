@@ -29,7 +29,8 @@
                 .ForMember(pd => pd.Shelter, cfg => cfg.MapFrom(p => p.Shelter));
 
             this.CreateMap<Pet, AdminPetListingServiceModel>()
-                .ReverseMap();
+                .ForMember(ap => ap.Type, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? "Dog" : "Cat"))
+                .ForMember(ap => ap.LostOrFound, cfg => cfg.MapFrom(p => p.IsLost == true ? "Lost" : "Found"));
 
             this.CreateMap<Article, AdminArticleListingServiceModel>()
                 .ReverseMap();

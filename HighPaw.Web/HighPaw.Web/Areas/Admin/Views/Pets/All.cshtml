@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PetListingServiceModel>
+
+
+@{
+    ViewBag.Title = "Pets Administration";
+}
+
+<partial name="_PageTitlePartial" />
+
+<section class="py-9 pt-md-5">
+    <div class="container">
+        <partial name="_AdminMenuPartial" />
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">ImageUrl</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Shelter Address</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pet in Model)
+                    {
+                        <tr>
+                            <td scope="col">@pet.Id</td>
+                            <td scope="col">@pet.Name</td>
+                            <td scope="col">@pet.ImageUrl</td>
+                            <td scope="col">@pet.Age</td>
+                            <td scope="col">@pet.Gender</td>
+                            <td scope="col">@pet.ShelterName</td>
+                            <td scope="col">
+                                <a asp-controller="Pets" asp-action="Edit" asp-route-id="@pet.Id">Edit</a> | 
+                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

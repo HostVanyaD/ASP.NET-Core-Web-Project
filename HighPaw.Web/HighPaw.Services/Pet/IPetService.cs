@@ -37,5 +37,9 @@
             DateTime? FoundDate,
             int SizeCategoryId,
             int ShelterId);
+
+        public IEnumerable<PetListingServiceModel> All();
+
+        public bool Delete(int id);
     }
 }

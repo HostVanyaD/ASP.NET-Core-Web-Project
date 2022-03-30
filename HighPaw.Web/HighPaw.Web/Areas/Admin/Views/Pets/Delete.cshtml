@@ -1,0 +1,16 @@
+﻿@model bool
+
+
+@if (Model is true)
+{
+    ViewBag.Title = "Delete successful";
+}
+else
+{
+    ViewBag.Title = "Pet was not found";
+}
+
+<partial name="_PageTitlePartial" />
+<div class="col-12 text-center pb-5">
+    <a asp-controller="Pets" asp-action="All" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Go back to All</a>
+</div>

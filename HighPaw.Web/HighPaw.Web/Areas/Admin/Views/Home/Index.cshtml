@@ -4,28 +4,12 @@
     ViewBag.Title = "Admin area";
 }
 
-<section class="page-title" style="margin-top: 5rem;">
-    <div class="row align-items-center justify-content-center height100px">
-        <div class="col-auto">
-            <div class="page-title-content">
-                <div class="title-border">
-                    <h1 class="text text-uppercase font-weight-bold">@ViewBag.Title</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<partial name="_PageTitlePartial" />
 
 
 <section class="py-9 pt-md-5">
     <div class="container">
-        <div class="col-12 text-center pb-5">
-            <a asp-controller="" asp-action="" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Users</a>
-            <a asp-controller="" asp-action="" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Pets</a>
-            <a asp-controller="" asp-action="" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Shelters</a>
-            <a asp-controller="" asp-action="" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Events</a>
-            <a asp-controller="" asp-action="" class="btn btn-secondary btn-sm" style="color: #fdc57b;">Articles</a>
-        </div>
+        <partial name="_AdminMenuPartial" />        
 
         <div class="col-12">
             <h3 class="element-title">Last 10 Added Pets</h3>
@@ -37,6 +21,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Type</th>
                         <th scope="col">Lost/Found</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,13 +32,19 @@
                         <td>@pet.Name</td>
                         <td>@pet.Type</td>
                         <td>@pet.LostOrFound</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-flex justify-content-start">
+                                <a class="btn btn-outline-success" >Delete</a> |
+                                <a class="btn btn-outline-info" >Edit</a>
+                            </div>
+                        </td>
                     </tr>
                    }
                 </tbody>
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="####" class="smoothScroll btn btn-secondary btn-rounded text-center" style="color: #fdc57b;" width="32" alt=""> View All </a>
+                <a asp-controller="Pets" asp-action="All" class="smoothScroll btn btn-secondary btn-rounded text-center" style="color: #fdc57b;" width="32" alt=""> View All </a>
             </div>
 
         </div>
@@ -67,7 +58,7 @@
                         <th scope="col">User</th>
                         <th scope="col">Title</th>
                         <th scope="col">Content</th>
-                        <th scope="col">Actions</th> @*TODO: Align with buttons group*@
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,10 +67,10 @@
                         <td>Title here</td>
                         <td>Content here</td>
                         <td>
-                            <div class="d-grid gap-2 d-md-flex justify-content-center">
-                                <button class="btn btn-outline-success" type="button">Approve</button>
-                                <button class="btn btn-outline-info" type="button">Edit</button>
-                                <button class="btn btn-outline-danger" type="button">Decline</button>
+                            <div class="d-grid gap-2 d-md-flex justify-content-start">
+                                <a class="btn btn-outline-success" >Approve</a> |
+                                <a class="btn btn-outline-info" >Edit</a> |
+                                <a class="btn btn-outline-danger" >Decline</a>
                             </div>
                         </td>
                     </tr>
