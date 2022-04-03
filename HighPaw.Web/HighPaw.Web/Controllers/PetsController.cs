@@ -5,6 +5,7 @@
     using HighPaw.Services.Pet;
     using HighPaw.Services.Shelter;
     using HighPaw.Web.Models.Pets;
+    using HighPaw.Services.Pet.Models;
 
     public class PetsController : Controller
     {
@@ -34,6 +35,18 @@
             }
 
             return View(pet);
+        }
+        public IActionResult All([FromQuery] AllPetsQueryModel query)
+        {
+            var queryResult = this.pets.All(
+                query.CurrentPage,
+                query.PageSize,
+                query.SearchString);
+
+            query.TotalItems = queryResult.TotalItems;
+            query.Pets = queryResult.Items;
+
+            return View(query);
         }
 
         public IActionResult AllLost()

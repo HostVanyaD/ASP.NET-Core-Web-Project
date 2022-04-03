@@ -40,6 +40,11 @@
 
         public IEnumerable<PetListingServiceModel> All();
 
+        public PetQueryServiceModel All(
+            int currentPage, 
+            int PageSize, 
+            string searchString);
+
         public bool Delete(int id);
     }
 }

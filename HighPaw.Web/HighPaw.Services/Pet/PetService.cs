@@ -76,21 +76,21 @@
             .Any(c => c.Id == sizeCategoryId);
 
         public int Add(
-            string name, 
-            string imageUrl, 
-            string petType, 
-            string breed, 
-            int? age, 
-            string gender, 
-            string color, 
-            string microchipId, 
-            bool isLost, 
-            string lastSeenLocation, 
-            DateTime? lostDate, 
-            bool isFound, 
-            string foundLocation, 
-            DateTime? foundDate, 
-            int sizeCategoryId, 
+            string name,
+            string imageUrl,
+            string petType,
+            string breed,
+            int? age,
+            string gender,
+            string color,
+            string microchipId,
+            bool isLost,
+            string lastSeenLocation,
+            DateTime? lostDate,
+            bool isFound,
+            string foundLocation,
+            DateTime? foundDate,
+            int sizeCategoryId,
             int shelterId)
         {
             var petData = new Pet
@@ -119,10 +119,60 @@
             return petData.Id;
         }
 
-        // Admin services
         public IEnumerable<PetListingServiceModel> All()
-        => this.data
+            => this.data
                 .Pets
+                .ProjectTo<PetListingServiceModel>(this.mapper)
+                .ToList();
+
+        public PetQueryServiceModel All(
+            int currentPage = 1,
+            int pageSize = 9,
+            string searchString = null)
+        {
+            IQueryable<Pet> petsQuery;
+
+            if (searchString == null)
+            {
+                petsQuery = this.data.Pets;
+            }
+            else
+            {
+                petsQuery = this.data
+                     .Pets
+                     .Where(p =>
+                        (p.Breed + " " + p.Age + " " + p.Gender).ToLower()
+                        .Contains(searchString.ToLower()));
+            }
+
+            var totalPets = petsQuery.Count();
+
+            var petsList = petsQuery
+                .Select(p => new PetListingServiceModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    ImageUrl = p.ImageUrl,
+                    Age = p.Age,
+                    Gender = p.Gender,
+                    ShelterName = p.Shelter.Name
+                })
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+
+            return new PetQueryServiceModel
+            {
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalItems = totalPets,
+                Items = petsList
+            };
+        }
+
+        private IEnumerable<PetListingServiceModel> GetPets(IQueryable<Pet> petsQuery)
+            => petsQuery
                 .ProjectTo<PetListingServiceModel>(this.mapper)
                 .ToList();
 
@@ -132,7 +182,7 @@
                 .Pets
                 .Find(id);
 
-            if(petToDelete is null)
+            if (petToDelete is null)
             {
                 return false;
             }
