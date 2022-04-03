@@ -4,8 +4,11 @@
     using HighPaw.Data.Models;
     using HighPaw.Data.Models.Enums;
     using HighPaw.Services.Admin.Models;
+    using HighPaw.Services.Article.Models;
     using HighPaw.Services.Pet.Models;
     using HighPaw.Services.Shelter.Models;
+
+    using static HighPaw.Services.GlobalConstants;
 
     public class MappingProfile : Profile
     {
@@ -24,16 +27,19 @@
                 .ForMember(p => p.ShelterName, cfg => cfg.MapFrom(p => p.Shelter.Address));
 
             this.CreateMap<Pet, PetDetailsServiceModel>()
-                .ForMember(pd => pd.PetType, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? "Dog" : "Cat"))
-                .ForMember(pd => pd.MicrochipId, cfg => cfg.MapFrom(p => p.MicrochipId ?? "Not info available"))
+                .ForMember(pd => pd.PetType, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? DogPetType : CatPetType))
+                .ForMember(pd => pd.MicrochipId, cfg => cfg.MapFrom(p => p.MicrochipId ?? MicrochipIdInfoNotAvailable))
                 .ForMember(pd => pd.Shelter, cfg => cfg.MapFrom(p => p.Shelter));
 
             this.CreateMap<Pet, AdminPetListingServiceModel>()
-                .ForMember(ap => ap.Type, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? "Dog" : "Cat"))
-                .ForMember(ap => ap.LostOrFound, cfg => cfg.MapFrom(p => p.IsLost == true ? "Lost" : "Found"));
+                .ForMember(ap => ap.Type, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? DogPetType : CatPetType))
+                .ForMember(ap => ap.LostOrFound, cfg => cfg.MapFrom(p => p.IsLost == true ? PetIsLost : PetIsFound));
 
             this.CreateMap<Article, AdminArticleListingServiceModel>()
                 .ReverseMap();
+
+            this.CreateMap<Article, ArticleServiceModel>()
+                 .ForMember(a => a.ArticleType, cfg => cfg.MapFrom(a => a.ArticleType == ArticleType.Article ? ArticleArticleType : StoryArticleType));
 
             //this.CreateMap<CarDetailsServiceModel, CarFormModel>();
 

@@ -43,9 +43,13 @@
             public const int TitleMinLength = 10;
             public const int TitleMaxLength = 80;
             public const int ContentMinLength = 100;
+            public const int ContentMaxLength = 2000000000;
             public const int CreatorNameMinLength = 5;
             public const int CreatorNameMaxLength = 80;
             public const int AddressMaxLength = 255;
+
+            public const string TitleErrorMessage = "Title must be between {2} and {1} characters long.";
+            public const string ContentErrorMessage = "Content must be between {2} and {1} characters long.";
         }
 
         public class User

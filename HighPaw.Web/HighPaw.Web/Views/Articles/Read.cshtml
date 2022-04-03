@@ -1,0 +1,13 @@
+﻿@model ArticleServiceModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container-fluid" style="margin-top: 5rem;">
+    
+            <h2>@Model.Title</h2>
+        <h6 class="card-subtitle mb-2 text-muted">Posted by @Model.CreatorName</h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.CreatedOn.Substring(0, 11)</h6>
+        <p>@Model.Content</p>
+</div>

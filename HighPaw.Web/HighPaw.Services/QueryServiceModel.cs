@@ -8,7 +8,5 @@
         public int PageSize { get; set; }
         public int TotalItems { get; set; }
         public IEnumerable<T> Items { get; set; } = new List<T>();
-
-        public virtual IEnumerable<string> Filters { get; set; }
     }
 }

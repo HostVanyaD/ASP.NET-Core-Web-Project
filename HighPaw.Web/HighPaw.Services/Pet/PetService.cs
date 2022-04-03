@@ -1,15 +1,14 @@
 ﻿namespace HighPaw.Services.Pet
 {
-
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using HighPaw.Data;
     using HighPaw.Data.Models;
     using HighPaw.Data.Models.Enums;
     using HighPaw.Services.Pet.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class PetService : IPetService
     {
@@ -147,19 +146,9 @@
 
             var totalPets = petsQuery.Count();
 
-            var petsList = petsQuery
-                .Select(p => new PetListingServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Age = p.Age,
-                    Gender = p.Gender,
-                    ShelterName = p.Shelter.Name
-                })
+            var petsList = GetPets(petsQuery
                 .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+                .Take(pageSize));
 
 
             return new PetQueryServiceModel

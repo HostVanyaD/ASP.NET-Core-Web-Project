@@ -1,11 +1,13 @@
 using HighPaw.Data;
 using HighPaw.Data.Models;
 using HighPaw.Services.Admin;
+using HighPaw.Services.Article;
 using HighPaw.Services.Pet;
 using HighPaw.Services.Shelter;
 using HighPaw.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +35,14 @@ builder
 
 builder
     .Services
-    .AddControllersWithViews();
+    .AddMemoryCache();
+
+builder
+    .Services
+    .AddControllersWithViews(options =>
+    {
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+    });
 
 builder
     .Services
@@ -44,6 +53,7 @@ builder
     .Services
     .AddTransient<IAdminService, AdminService>()
     .AddTransient<IPetService, PetService>()
+    .AddTransient<IArticleService, ArticleService>()
     .AddTransient<IShelterService, ShelterService>();
 
 var app = builder.Build();
@@ -62,7 +72,7 @@ else
 }
 
 app
-    .UseHttpsRedirection() 
+    .UseHttpsRedirection()
     .UseStaticFiles()
     .UseRouting()
     .UseAuthentication()

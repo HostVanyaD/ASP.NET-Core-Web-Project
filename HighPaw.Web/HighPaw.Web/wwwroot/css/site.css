@@ -36,6 +36,32 @@ html {
     background-color: #cbbcb1;
 }
 
+/*Articles*/
+:root {
+    --gradient: linear-gradient(to left top, white 10%, #fdc57b 90%) !important;
+}
+
+.btn.cardA {
+    border: 5px solid;
+    border-image-slice: 1;
+    background: var(--gradient) !important;
+    -webkit-background-clip: content-box !important;
+    -webkit-text-fill-color: transparent !important;
+    border-image-source: var(--gradient) !important;
+    text-decoration: none;
+    transition: all .4s ease;
+}
+
+    .btn.cardA:hover, .btn.cardA:focus {
+        background: var(--gradient) !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: #fff !important;
+        border: 5px solid #fff !important;
+        box-shadow: #222 1px 0 10px;
+        text-decoration: underline;
+    }
+/*Articles*/
+
 .v-responsive__sizer {
     transition: padding-bottom .2s cubic-bezier(.25,.8,.5,1);
     flex: 1 0 0px;

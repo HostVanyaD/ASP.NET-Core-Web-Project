@@ -1,11 +1,10 @@
 ﻿namespace HighPaw.Web.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
     using HighPaw.Services.Pet;
     using HighPaw.Services.Shelter;
     using HighPaw.Web.Models.Pets;
-    using HighPaw.Services.Pet.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     public class PetsController : Controller
     {
