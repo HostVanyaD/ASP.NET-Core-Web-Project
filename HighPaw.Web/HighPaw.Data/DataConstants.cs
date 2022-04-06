@@ -29,6 +29,9 @@
             public const int AddressMaxLength = 255;
             public const int PhoneMaxLength = 15;
 
+            public const string NameErrorMessage = "Name must be between {2} and {1} characters long.";
+            public const string AddressErrorMessage = "Address is not valid. It must be maximum {1} characters long.";
+
         }
 
         public class Volunteer
@@ -36,6 +39,9 @@
             public const int DefaultNameMinLength = 2;
             public const int FirstNameMaxLength = 20;
             public const int LastNameMaxLength = 60;
+
+            public const string FirstNameErrorMessage = "First Name must be between {2} and {1} characters long.";
+            public const string LastNameErrorMessage = "Last Name must be between {2} and {1} characters long.";
         }
 
         public class EventAndArticle

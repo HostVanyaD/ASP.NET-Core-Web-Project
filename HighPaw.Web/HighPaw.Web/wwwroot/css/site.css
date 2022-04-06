@@ -36,6 +36,10 @@ html {
     background-color: #cbbcb1;
 }
 
+.app {
+    opacity: 100;
+}
+
 /*Articles*/
 :root {
     --gradient: linear-gradient(to left top, white 10%, #fdc57b 90%) !important;

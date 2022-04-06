@@ -54,5 +54,15 @@
                 .Shelters
                 .ProjectTo<ShelterServiceModel>(this.mapper)
                 .ToList();
+
+        public void Delete(int id)
+        {
+            var shelterToDelete = this.data
+                .Shelters
+                .Find(id);
+
+            this.data.Shelters.Remove(shelterToDelete);
+            this.data.SaveChanges();
+        }
     }
 }

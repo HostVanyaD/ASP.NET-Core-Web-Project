@@ -16,5 +16,7 @@
             string phoneNumber,
             string description,
             string website);
+
+        public void Delete(int id);
     }
 }

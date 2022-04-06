@@ -1,27 +1,18 @@
 ﻿namespace HighPaw.Web.Controllers
 {
-    using HighPaw.Data.Models;
     using HighPaw.Services.Article;
     using HighPaw.Web.Infrastructure.Extensions;
     using HighPaw.Web.Models.Articles;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     using static HighPaw.Services.GlobalConstants;
 
     public class ArticlesController : Controller
     {
         private readonly IArticleService articles;
-        private readonly UserManager<User> userManager;
 
-        public ArticlesController(
-            IArticleService articles,
-            UserManager<User> userManager)
-        {
-            this.articles = articles;
-            this.userManager = userManager;
-        }
+        public ArticlesController(IArticleService articles)
+            => this.articles = articles;
 
         public IActionResult All()
         {
@@ -39,9 +30,9 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            string userFullName = await GetCurentUserFullName();
+            string userFullName = User.FullName();
 
             return View(new ArticleFormModel
             {
@@ -52,9 +43,9 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(ArticleFormModel article)
+        public IActionResult Create(ArticleFormModel article)
         {
-            string userFullName = await GetCurentUserFullName();
+            string userFullName = User.FullName();
 
             if (article.CreatorName != userFullName)
             {
@@ -75,14 +66,6 @@
                 article.ArticleType);
 
             return RedirectToAction(nameof(All));
-        }
-
-        private async Task<string> GetCurentUserFullName()
-        {
-            var userId = User.Id();
-            var user = await userManager.FindByIdAsync(userId);
-            var userFullName = user.FullName;
-            return userFullName;
         }
     }
 }

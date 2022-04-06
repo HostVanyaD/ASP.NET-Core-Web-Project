@@ -35,6 +35,12 @@
                                 <a class="nav-link" asp-area="" asp-controller="Pets" asp-action="AllFound">Found pets</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Articles" asp-action="All">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Events" asp-action="All">Events</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#!">About</a>
                             </li>
                             <li class="nav-item">
@@ -48,7 +54,7 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container app">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -62,7 +68,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

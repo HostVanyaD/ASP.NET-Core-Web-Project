@@ -3,11 +3,22 @@
 @{
     ViewBag.Title = Model.Title;
 }
-
 <div class="container-fluid" style="margin-top: 5rem;">
-    
-            <h2>@Model.Title</h2>
-        <h6 class="card-subtitle mb-2 text-muted">Posted by @Model.CreatorName</h6>
-        <h6 class="card-subtitle mb-2 text-muted">@Model.CreatedOn.Substring(0, 11)</h6>
-        <p>@Model.Content</p>
+    <div class="bg-image"
+         style="background-image: url('@Model.ImageUrl');
+            height: 75vh">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+            <div class="d-flex justify-content-center align-items-center">
+                <h1 class="text-white justify-content-center align-items-center mb-2">@Model.Title</h1>
+            </div>
+        </div>
+    </div>
+    <h6 class="card-subtitle mb-2 mt-2 text-muted">Posted by @Model.CreatorName</h6>
+    <h6 class="card-subtitle mb-2 text-muted">@Model.CreatedOn.Substring(0, 11)</h6>
+    <hr />
+    <dl class="row">
+        <dd class="col-sm-8">
+            @Model.Content
+        </dd>
+    </dl>
 </div>

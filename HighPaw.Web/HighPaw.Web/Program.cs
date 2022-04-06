@@ -4,6 +4,7 @@ using HighPaw.Services.Admin;
 using HighPaw.Services.Article;
 using HighPaw.Services.Pet;
 using HighPaw.Services.Shelter;
+using HighPaw.Services.Volunteer;
 using HighPaw.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -54,7 +55,8 @@ builder
     .AddTransient<IAdminService, AdminService>()
     .AddTransient<IPetService, PetService>()
     .AddTransient<IArticleService, ArticleService>()
-    .AddTransient<IShelterService, ShelterService>();
+    .AddTransient<IShelterService, ShelterService>()
+    .AddTransient<IVolunteerService, VolunteerService>();
 
 var app = builder.Build();
 

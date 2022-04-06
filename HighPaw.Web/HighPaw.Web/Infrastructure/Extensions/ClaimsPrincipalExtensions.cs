@@ -10,7 +10,7 @@
             => user.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         public static string FullName(this ClaimsPrincipal user)
-            => user.FindFirst("FullName").Value;
+            => user.Identity.Name;
 
         public static bool IsAdmin(this ClaimsPrincipal user)
             => user.IsInRole(AdminRoleName);

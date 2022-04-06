@@ -34,7 +34,7 @@
                         <td>@pet.LostOrFound</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-start">
-                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id" class="btn btn-outline-success">Delete</a>
+                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet from the database?')">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -61,18 +61,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var article in @Model.Articles)
+                   {
                     <tr>
-                        <td>User here</td>
-                        <td>Title here</td>
-                        <td>Content here</td>
+                        <td>@article.User</td>
+                        <td>@article.Title</td>
+                        <td>@article.Content.Substring(0, 200)</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-start">
-                                <a class="btn btn-outline-success" >Approve</a> |
-                                <a class="btn btn-outline-info" >Edit</a> |
-                                <a class="btn btn-outline-danger" >Decline</a>
+                                <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet from the database?')">Delete</a>
                             </div>
                         </td>
                     </tr>
+                    }
                 </tbody>
             </table>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

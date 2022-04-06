@@ -1,15 +1,17 @@
 ﻿@using HighPaw.Data.Models
+@using HighPaw.Services.Volunteer
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject IVolunteerService Volunteers
 
 <ul class="navbar-nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.Id();
         var user = await UserManager.FindByIdAsync(userId);
-        var userIsVolunteer = false;
+        var userIsVolunteer = Volunteers.IsVolunteer(userId);
         var userIsAdmin = User.IsAdmin();
 
         <li class="nav-item justify-content-end">
@@ -18,7 +20,7 @@
         if (!userIsAdmin && !userIsVolunteer)
         {
             <li class="nav-item justify-content-end">
-                <a class="nav-link" asp-controller="Volunteers" asp-action="Become">Become a volunteer</a>
+                <a class="nav-link become" asp-controller="Volunteers" asp-action="Become">Become a volunteer</a>
             </li>
         }
         <li class="nav-item justify-content-end">
