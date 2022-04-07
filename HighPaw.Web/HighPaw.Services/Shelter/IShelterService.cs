@@ -5,7 +5,7 @@
 
     public interface IShelterService
     {
-        public IEnumerable<ShelterServiceModel> GetAll();
+        public IEnumerable<ShelterServiceModel> All();
 
         public IEnumerable<ShelterNameServiceModel> GetAllNames();
 

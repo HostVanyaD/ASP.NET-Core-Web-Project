@@ -13,7 +13,7 @@
 
         public IActionResult All()
         {
-            var allShelters = this.shelters.GetAll();
+            var allShelters = this.shelters.All();
 
             return View(allShelters);
         }

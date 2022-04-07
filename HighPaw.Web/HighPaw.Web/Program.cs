@@ -2,6 +2,7 @@ using HighPaw.Data;
 using HighPaw.Data.Models;
 using HighPaw.Services.Admin;
 using HighPaw.Services.Article;
+using HighPaw.Services.Event;
 using HighPaw.Services.Pet;
 using HighPaw.Services.Shelter;
 using HighPaw.Services.Volunteer;
@@ -56,7 +57,8 @@ builder
     .AddTransient<IPetService, PetService>()
     .AddTransient<IArticleService, ArticleService>()
     .AddTransient<IShelterService, ShelterService>()
-    .AddTransient<IVolunteerService, VolunteerService>();
+    .AddTransient<IVolunteerService, VolunteerService>()
+    .AddTransient<IEventService, EventService>();
 
 var app = builder.Build();
 

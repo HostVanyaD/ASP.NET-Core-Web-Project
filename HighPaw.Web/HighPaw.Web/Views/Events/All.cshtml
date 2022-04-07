@@ -1,0 +1,40 @@
+﻿@model IEnumerable<EventServiceModel>
+
+@{
+    ViewBag.Title = "Upcoming events";
+}
+
+<section class="page-title" style="margin-top: 5rem;">
+    <div class="row align-items-center justify-content-center height100px">
+        <div class="col-auto">
+            <div class="page-title-content">
+                <div class="title-border">
+                    <h1 class="text text-uppercase font-weight-bold">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <h1 class="text-center" style="margin: 10rem 0 3rem 0; font-size: 4.5rem; font-weight: 300; line-height: inherit">No events at the moment</h1>
+}
+
+@if (Model.Any())
+{
+    <div class="row mt-3">
+            @foreach (var ev in Model)
+            {
+                <div class="col-sm-6">
+                   <div class="card">
+                     <div class="card-body">
+                       <h5 class="card-title">@ev.Title</h5>
+                       <p class="card-text">@ev.Description</p>
+                       <h6>@ev.Location</h6>
+                     </div>
+                   </div>
+                 </div>
+            }
+    </div>
+}

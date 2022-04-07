@@ -49,6 +49,19 @@
             return articleData.Id;
         }
 
+        public void Delete(int id)
+        {
+            var articleToDelete = this.data
+                .Articles
+                .Find(id);
+
+            this.data
+                .Articles
+                .Remove(articleToDelete);
+
+            this.data.SaveChanges();
+        }
+
         public ArticleServiceModel Read(int id)
             => this.data
                 .Articles

@@ -10,9 +10,18 @@
         public ArticlesController(IArticleService articles)
             => this.articles = articles;
 
+        public IActionResult All()
+        {
+            var allArticles = this.articles.All();
+
+            return View(allArticles);
+        }
+
         public IActionResult Delete(int id)
         {
-            return View(); //TODO:
+            this.articles.Delete(id);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

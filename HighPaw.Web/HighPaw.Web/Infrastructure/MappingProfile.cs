@@ -5,6 +5,7 @@
     using HighPaw.Data.Models.Enums;
     using HighPaw.Services.Admin.Models;
     using HighPaw.Services.Article.Models;
+    using HighPaw.Services.Event.Models;
     using HighPaw.Services.Pet.Models;
     using HighPaw.Services.Shelter.Models;
 
@@ -41,14 +42,7 @@
             this.CreateMap<Article, ArticleServiceModel>()
                  .ForMember(a => a.ArticleType, cfg => cfg.MapFrom(a => a.ArticleType == ArticleType.Article ? ArticleArticleType : StoryArticleType));
 
-            //this.CreateMap<CarDetailsServiceModel, CarFormModel>();
-
-            //this.CreateMap<Car, CarServiceModel>()
-            //    .ForMember(c => c.CategoryName, cfg => cfg.MapFrom(c => c.Category.Name));
-
-            //this.CreateMap<Car, CarDetailsServiceModel>()
-            //    .ForMember(c => c.UserId, cfg => cfg.MapFrom(c => c.Dealer.UserId))
-            //    .ForMember(c => c.CategoryName, cfg => cfg.MapFrom(c => c.Category.Name));
+            this.CreateMap<Event, EventServiceModel>();
         }
     }
 }

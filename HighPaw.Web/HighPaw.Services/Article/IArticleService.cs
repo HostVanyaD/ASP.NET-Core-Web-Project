@@ -14,6 +14,8 @@
 
         public ArticleServiceModel Read(int id);
 
+        public void Delete(int id);
+
         public IEnumerable<ArticleServiceModel> All();
     }
 }

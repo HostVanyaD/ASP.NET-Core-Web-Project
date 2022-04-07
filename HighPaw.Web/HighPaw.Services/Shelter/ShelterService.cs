@@ -49,7 +49,7 @@
             return shelterData.Id;
         }
 
-        public IEnumerable<ShelterServiceModel> GetAll()
+        public IEnumerable<ShelterServiceModel> All()
              => this.data
                 .Shelters
                 .ProjectTo<ShelterServiceModel>(this.mapper)
