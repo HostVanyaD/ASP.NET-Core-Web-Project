@@ -19,7 +19,7 @@
         public void All_ShouldReturnData()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();
@@ -69,7 +69,7 @@
             string title, string content, string imageUrl, string creatorName, string articleType)
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();
@@ -106,7 +106,7 @@
             string title, string content, string imageUrl, string creatorName, string articleType)
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();
@@ -134,7 +134,7 @@
         public void Delete_ShouldRemoveTheArticleFromDb()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();
@@ -173,7 +173,7 @@
         public void Read_ShouldReturnAnArticleOfCorrectType()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();

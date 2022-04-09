@@ -1,5 +1,6 @@
 ﻿namespace HighPaw.Tests.Services
 {
+    using System;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
     using FluentAssertions;
@@ -17,7 +18,7 @@
         public void All_ShouldReturnData()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase("test").Options;
+            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var dbContext = new HighPawDbContext(options);
 
             var myProfile = new MappingProfile();
