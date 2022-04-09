@@ -1,23 +1,15 @@
 ﻿namespace HighPaw.Services.Volunteer
 {
-    using System;
     using System.Linq;
-    using AutoMapper;
     using HighPaw.Data;
     using HighPaw.Data.Models;
 
     public class VolunteerService : IVolunteerService
     {
         private readonly HighPawDbContext data;
-        private readonly IConfigurationProvider mapper;
 
-        public VolunteerService(
-            HighPawDbContext data, 
-            IMapper mapper)
-        {
-            this.data = data;
-            this.mapper = mapper.ConfigurationProvider;
-        }
+        public VolunteerService(HighPawDbContext data)
+            => this.data = data;
 
         public bool IsVolunteer(string id)
             => this.data

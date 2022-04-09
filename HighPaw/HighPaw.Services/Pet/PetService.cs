@@ -160,11 +160,6 @@
             };
         }
 
-        private IEnumerable<PetListingServiceModel> GetPets(IQueryable<Pet> petsQuery)
-            => petsQuery
-                .ProjectTo<PetListingServiceModel>(this.mapper)
-                .ToList();
-
         public bool Delete(int id)
         {
             var petToDelete = this.data
@@ -181,5 +176,10 @@
 
             return true;
         }
+
+        private IEnumerable<PetListingServiceModel> GetPets(IQueryable<Pet> petsQuery)
+            => petsQuery
+                .ProjectTo<PetListingServiceModel>(this.mapper)
+                .ToList();
     }
 }

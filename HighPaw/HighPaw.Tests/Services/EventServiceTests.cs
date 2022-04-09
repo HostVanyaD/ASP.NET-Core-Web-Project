@@ -58,6 +58,8 @@
                 .HaveCount(2)
                 .And
                 .AllBeOfType<EventServiceModel>();
+
+            dbContext.Dispose();
         }
     }
 }

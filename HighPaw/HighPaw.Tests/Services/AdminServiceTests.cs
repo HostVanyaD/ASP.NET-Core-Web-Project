@@ -69,12 +69,14 @@
             var result = service
                 .GetLatestPets();
 
-                // Assert
+            // Assert
             result
                 .Should()
                 .NotBeNull()
                 .And
                 .HaveCount(10);
+
+            dbContext.Dispose();
         }
 
         [Fact]
@@ -116,6 +118,8 @@
                 .NotBeNull()
                 .And
                 .HaveCount(10);
+
+            dbContext.Dispose();
         }
     }
 }

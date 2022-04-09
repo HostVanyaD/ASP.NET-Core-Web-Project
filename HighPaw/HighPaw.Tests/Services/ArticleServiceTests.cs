@@ -61,6 +61,8 @@
                 .HaveCount(2)
                 .And
                 .AllBeOfType<ArticleServiceModel>();
+
+            dbContext.Dispose();
         }
 
         [Theory]
@@ -98,6 +100,8 @@
                 .HaveCount(1)
                 .And
                 .AllBeOfType<ArticleServiceModel>();
+
+            dbContext.Dispose();
         }
 
         [Theory]
@@ -128,6 +132,8 @@
             act
                 .Should()
                 .Throw<Microsoft.EntityFrameworkCore.DbUpdateException>();
+
+            dbContext.Dispose();
         }
 
         [Fact]
@@ -167,6 +173,8 @@
                 .Articles
                 .Should()
                 .HaveCount(0);
+
+            dbContext.Dispose();
         }
 
         [Fact]
@@ -206,6 +214,8 @@
             result
                 .Should()
                 .BeOfType<ArticleServiceModel>();
+
+            dbContext.Dispose();
         }
     }
 }
