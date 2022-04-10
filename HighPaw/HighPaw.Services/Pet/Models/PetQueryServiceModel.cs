@@ -2,5 +2,6 @@
 {
     public class PetQueryServiceModel : QueryServiceModel<PetListingServiceModel>
     {
+        public string Filters { get; set; }
     }
 }

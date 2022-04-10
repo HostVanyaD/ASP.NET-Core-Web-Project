@@ -18,7 +18,7 @@ margin-top: 5rem">
             <div class="text-white">
                 <h1 class="mb-3" style="font-weight: 900;">ALL FOR LOVE</h1>
                 <h4 class="mb-3">Pets change our lives, let’s save theirs!</h4>
-                <a class="btn btn-outline-light btn-lg" asp-controller="Pets" asp-action="NotImplemented" role="button">Adopt now</a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="Pets" asp-action="All" role="button">Adopt now</a>
             </div>
             <!--QuizFilter-->
             <section>
@@ -29,8 +29,10 @@ margin-top: 5rem">
                             <h3>FIND YOUR IDEAL PET</h3>
                             <h5>RATED 93% ACCURATE BY USERS</h5>
                             <hr>
-                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32" alt=""> Dog Match</a>
-                            <a href="####" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;"><img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32" alt=""> Cat Match</a>
+                            <a asp-controller="Home" asp-action="Quiz" class="smoothScroll btn btn-dark btn-rounded text-center" style="color: #5e9693;">
+                                <img src="https://pawslikeme.com/assets/home/images/dog-face5-wht-32.png" width="32">
+                                Find Your Match 
+                                <img src="https://pawslikeme.com/assets/home/images/cat-face8-wht-32.png" width="32"></a>
                             <h4 class="text-center" style="padding-bottom: 0; margin-bottom: 0; margin-top: 30px;"><a asp-controller="Home" asp-action="Work" style="color: #303030; text-decoration: underline; height: 200px;">How it works</a></h4>
                         </div>
                     </div>

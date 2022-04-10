@@ -45,6 +45,11 @@
             int PageSize, 
             string searchString);
 
+        public PetQueryServiceModel GetQuizResults(
+           int currentPage,
+           int pageSize,
+           string filters);
+
         public bool Delete(int id);
     }
 }

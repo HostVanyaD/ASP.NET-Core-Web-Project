@@ -137,11 +137,12 @@
             }
             else
             {
+                // TODO: I have to improve searching, because when you search for "male", results include "female" as well
                 petsQuery = this.data
                      .Pets
                      .Where(p =>
                         (p.Breed + " " + p.Age + " " + p.Gender).ToLower()
-                        .Contains(searchString.ToLower()));
+                        .Contains(searchString.Trim().ToLower()));
             }
 
             var totalPets = petsQuery.Count();
@@ -175,6 +176,86 @@
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public PetQueryServiceModel GetQuizResults(
+            int currentPage,
+            int pageSize,
+            string filters)
+        {
+            if (currentPage == 0)
+            {
+                currentPage = 1;
+            }
+            if (pageSize == 0)
+            {
+                pageSize = 6;
+            }
+
+            IQueryable<Pet> petsQuery = this.data.Pets;
+            petsQuery = GenerateResults(filters, petsQuery);
+
+            var totalPets = petsQuery.Count();
+
+            var petsList = GetPets(petsQuery
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize));
+
+
+            return new PetQueryServiceModel
+            {
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalItems = totalPets,
+                Items = petsList
+            };
+        }
+
+        private static IQueryable<Pet> GenerateResults(string filters, IQueryable<Pet> petsQuery)
+        {
+            var answers = filters.Split(',');
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                var answer = answers[i];
+
+                if (i == 0)
+                {
+                    petsQuery = answer switch
+                    {
+                        "a" => petsQuery,
+                        "b" => petsQuery.Where(p => p.SizeCategoryId == 1),
+                        "c" => petsQuery.Where(p => p.SizeCategoryId == 2),
+                        "d" => petsQuery.Where(p => p.SizeCategoryId == 3),
+                        "e" => petsQuery.Where(p => p.SizeCategoryId == 4),
+                        _ => petsQuery
+                    };
+                }
+                else if (i == 1)
+                {
+                    petsQuery = answer switch
+                    {
+                        "a" => petsQuery,
+                        "b" => petsQuery.Where(p => p.Age <= 1),
+                        "c" => petsQuery.Where(p => p.Age > 1 && p.Age < 2),
+                        "d" => petsQuery.Where(p => p.Age >= 2 && p.Age < 6),
+                        "e" => petsQuery.Where(p => p.Age > 6),
+                        _ => petsQuery
+                    };
+                }
+                else
+                {
+                    petsQuery = answer switch
+                    {
+                        "a" => petsQuery,
+                        "b" => petsQuery.Where(p => p.Gender.ToLower() == "male"),
+                        "c" => petsQuery.Where(p => p.Gender.ToLower() == "female"),
+                        _ => petsQuery
+                    };
+                }
+            }
+
+            return petsQuery;
         }
 
         private IEnumerable<PetListingServiceModel> GetPets(IQueryable<Pet> petsQuery)

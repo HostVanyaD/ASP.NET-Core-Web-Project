@@ -444,6 +444,28 @@
             dbContext.Dispose();
         }
 
+        [Theory]
+        [InlineData(1, 3, "b,a,c")]
+        public void GetQuizResults_ShouldReturnCorrectType(
+            int currentPage,
+            int pageSize,
+            string filters)
+        {
+            // Arrange
+            var (service, dbContext) = GetServiceAndDbContextWithMultiplePets();
+
+            // Act
+            var result = service
+                .GetQuizResults(currentPage, pageSize, filters);
+
+            // Assert
+            result
+                .Should()
+                .BeOfType<PetQueryServiceModel>();
+
+            dbContext.Dispose();
+        }
+
         [Fact]
         public void Delete_ShouldRemovePetWithGivenIdFromDb_AndReturnTrueIfSucceeded()
         {
@@ -464,6 +486,26 @@
                 .Count()
                 .Should()
                 .Be(0);
+
+            dbContext.Dispose();
+        }
+
+        [Fact]
+        public void Delete_ShouldReturnFalseIfPetIdIsNotPresent()
+        {
+            // Arrange
+            var (service, dbContext, petId) = GetServiceDbContextWithASinglePetAndItsId();
+
+            var invalidId = petId + 1;
+
+            // Act
+            var result = service
+                .Delete(invalidId);
+
+            // Assert
+            result
+                .Should()
+                .BeFalse();
 
             dbContext.Dispose();
         }
