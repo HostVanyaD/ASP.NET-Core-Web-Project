@@ -1,9 +1,8 @@
 # High Paw
----
 ASP.NET Core App for the final project at [SoftUni](https://softuni.bg/).
 
-**__HighPaw__** is a web app that helps people and pets find each other and live happier lives together. The main goal is to keep animals out of shelters. 
----
+**HighPaw** is a web app that helps people and pets find each other and live happier lives together. The main goal is to keep animals out of shelters. 
+
 ## How It Works
 -Guest visitors:
   -Can view all added pets.
