@@ -56,7 +56,7 @@
                 SeedPets(data);
             }
 
-            SeedAdministrator(services);
+            SeedUserAndAdministrator(services);
             SeedVolunteer(services);
 
             if (!data.Articles.Any())
@@ -584,7 +584,7 @@ This year will be the first-ever hybrid conference experience April 19-22, 2022,
             data.SaveChanges();
         }
 
-        private static void SeedAdministrator(IServiceProvider services)
+        private static void SeedUserAndAdministrator(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
@@ -604,16 +604,28 @@ This year will be the first-ever hybrid conference experience April 19-22, 2022,
                     const string adminEmail = "admin@admin.com";
                     const string adminPassword = "admin123";
 
-                    var user = new User
+                    const string userEmail = "test@test.com";
+                    const string userPassword = "test123";
+                    const string userFullName = "Test User";
+
+                    var admin = new User
                     {
                         Email = adminEmail,
                         UserName = adminEmail,
                         FullName = "Admin"
                     };
 
-                    await userManager.CreateAsync(user, adminPassword);
+                    var user = new User
+                    {
+                        Email = userEmail,
+                        UserName = userEmail,
+                        FullName = userFullName
+                    };
 
-                    await userManager.AddToRoleAsync(user, role.Name);
+                    await userManager.CreateAsync(admin, adminPassword);
+                    await userManager.CreateAsync(user, userPassword);
+
+                    await userManager.AddToRoleAsync(admin, role.Name);
                 })
                 .GetAwaiter()
                 .GetResult();
