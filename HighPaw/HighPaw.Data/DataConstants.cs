@@ -56,6 +56,7 @@
 
             public const string TitleErrorMessage = "Title must be between {2} and {1} characters long.";
             public const string ContentErrorMessage = "Content must be between {2} and {1} characters long.";
+            public const string AddressErrorMessage = "Address is not valid. It must be maximum {1} characters long..";
         }
 
         public class User

@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const string VolunteerRoleName = "Volunteer";
+
         public const string DogPetType = "Dog";
         public const string CatPetType = "Cat";
         public const string PetIsLost = "Lost";

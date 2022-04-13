@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@article.Title</h5>
                             <h6 class="card-subtitle mb-2 text-muted">@article.CreatorName</h6>
-                            <p class="card-text">@article.Content.Substring(0, 120) . . .</p>
+                            <p class="card-text">@Html.Raw(article.Content.Substring(0, 120)) . . .</p>
                             <h6 class="card-subtitle mb-2 text-muted">@article.CreatedOn.Substring(0, 11)</h6>
                             <a asp-controller="Articles" asp-action="Read" asp-route-id="@article.Id" class="btn btn-outline-success btn-sm">Read More</a>
                         </div>

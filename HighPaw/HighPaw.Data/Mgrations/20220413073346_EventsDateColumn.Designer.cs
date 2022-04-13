@@ -4,16 +4,18 @@ using HighPaw.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace HighPaw.Data.Migrations
+namespace HighPaw.Data.Mgrations
 {
     [DbContext(typeof(HighPawDbContext))]
-    partial class HighPawDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413073346_EventsDateColumn")]
+    partial class EventsDateColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

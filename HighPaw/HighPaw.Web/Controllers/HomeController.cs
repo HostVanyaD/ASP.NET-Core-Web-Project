@@ -3,9 +3,6 @@
     using HighPaw.Services.Pet;
     using HighPaw.Services.Pet.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Memory;
-    using System;
-    using System.Collections.Generic;
     using static Areas.Admin.AdminConstants;
 
     public class HomeController : Controller

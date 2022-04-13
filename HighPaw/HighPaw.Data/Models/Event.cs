@@ -1,5 +1,6 @@
 ﻿namespace HighPaw.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants.EventAndArticle;
 
@@ -18,5 +19,7 @@
         [Required]
         [MaxLength(AddressMaxLength)]
         public string Location { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }
