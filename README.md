@@ -14,6 +14,9 @@ ASP.NET Core App for the final project at [SoftUni](https://softuni.bg/).
   - Can add lost or found pets.
   - Can write an article or story.
   - Can become a volunteer.
+- Vlunteers:
+  - Can help admins by creating events.
+  - Provide essential support for humane societies by caring for animals until they are adopted.
 - Admin
   - Can manage shelters, pets, articles and events.
   
