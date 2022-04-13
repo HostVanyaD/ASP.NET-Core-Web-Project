@@ -18,12 +18,18 @@ ASP.NET Core App for the final project at [SoftUni](https://softuni.bg/).
   - Can manage shelters, pets, articles and events.
   
 ## Test user accounts
-- Email : admin@admin.com
-- Password : admin123
+- Admin
+  - Email : admin@admin.com
+  - Password : admin123
 
-- Email : test@test.com
-- Password : test123
-
+- User
+  - Email : test@test.com
+  - Password : test123
+  
+- Volunteer
+  - Email : test@volunteer.com;
+  - Password : vtest123;
+  
 # 🛠 Technologies Used:
 
 - ASP.NET Core
