@@ -1,8 +1,24 @@
 ﻿@model IEnumerable<ArticleServiceModel>
 
 @{
-    ViewBag.Title = "Articles";
+    ViewBag.Title = "Articles and Stories";
 }
+
+<section class="page-title" style="margin-top: 5rem;">
+    <div class="row justify-content-center height100px" style="text-align: center;">
+        <div class="col-auto">
+            <div class="page-title-content">
+                <div class="title-border">
+                    <h1 class="text text-uppercase font-weight-bold">@ViewBag.Title</h1>
+                </div>
+            </div>
+            @if (User.IsAdmin() || User.IsVolunteer())
+            {
+                <a asp-controller="Articles" asp-action="Create" class="btn btn-outline-success btn-sm align-content-center">Create New</a>  
+            }
+        </div>
+    </div>
+</section>
 
 @if (!Model.Any())
 {
@@ -11,7 +27,7 @@
 
 @if (Model.Any())
 {
-    <section id="gallery" style="margin-top: 5rem;">
+    <section id="gallery" style="margin-top: 2rem;">
         <div class="container-fluid mx-auto row row-cols-4 row-cols-md-2 row-cols-sm-1 g-4">
             @foreach (var article in Model)
             {

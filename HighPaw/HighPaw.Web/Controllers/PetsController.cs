@@ -2,6 +2,7 @@
 {
     using HighPaw.Services.Pet;
     using HighPaw.Services.Shelter;
+    using HighPaw.Web.Infrastructure.Extensions;
     using HighPaw.Web.Models.Pets;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -118,6 +119,11 @@
                 pet.SizeCategoryId,
                 pet.ShelterId
                 );
+
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("All", "Pets", new { area = "Admin" });
+            }
 
             return RedirectToAction(nameof(this.AllFound));
         }

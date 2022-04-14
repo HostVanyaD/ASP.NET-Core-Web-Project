@@ -5,6 +5,7 @@
     using HighPaw.Web.Models.Articles;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using static Areas.Admin.AdminConstants;
     using static HighPaw.Services.GlobalConstants;
 
     public class ArticlesController : Controller
@@ -29,7 +30,7 @@
             return View(article);
         }
 
-        [Authorize]
+        [Authorize(Roles = $"{AdminRoleName},{VolunteerRoleName}")]
         public IActionResult Create()
         {
             string userFullName = User.FullName();
@@ -41,20 +42,13 @@
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = $"{AdminRoleName},{VolunteerRoleName}")]
         [HttpPost]
         public IActionResult Create(ArticleFormModel article)
         {
-            string userFullName = User.FullName();
-
-            if (article.CreatorName != userFullName)
-            {
-                return Unauthorized();
-            }
-
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(this.Create));
+                return View(article);
             }
 
             var articleId = this.articles

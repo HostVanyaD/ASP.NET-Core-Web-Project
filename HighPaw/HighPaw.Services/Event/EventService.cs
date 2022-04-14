@@ -25,6 +25,7 @@
         public IEnumerable<EventServiceModel> All()
             => this.data
                 .Events
+                .Where(e => e.Date > DateTime.UtcNow)
                 .ProjectTo<EventServiceModel>(this.mapper)
                 .ToList();
 
@@ -46,6 +47,19 @@
             this.data.SaveChanges();
 
             return eventData.Id;
+        }
+
+        public void Delete(int id)
+        {
+            var eventToDelete = this.data
+                .Events
+                .Find(id);
+
+            this.data
+                .Events
+                .Remove(eventToDelete);
+
+            this.data.SaveChanges();
         }
     }
 }

@@ -41,6 +41,11 @@
                 model.Location,
                 model.Date);
 
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("All", "Events", new { area = "Admin" });
+            }
+
             return RedirectToAction(nameof(All));
         }
     }

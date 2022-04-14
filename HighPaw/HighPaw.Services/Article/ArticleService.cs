@@ -24,6 +24,7 @@
         public IEnumerable<ArticleServiceModel> All()
             => this.data
                 .Articles
+                .OrderByDescending(a => a.Id)
                 .ProjectTo<ArticleServiceModel>(this.mapper)
                 .ToList();
 

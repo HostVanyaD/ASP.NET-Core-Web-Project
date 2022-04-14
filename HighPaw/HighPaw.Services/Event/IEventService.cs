@@ -13,5 +13,7 @@
             string description,
             string location,
             DateTime date);
+
+        public void Delete(int id);
     }
 }

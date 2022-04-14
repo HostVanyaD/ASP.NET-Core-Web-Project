@@ -17,8 +17,8 @@
     <h6 class="card-subtitle mb-2 text-muted">@Model.CreatedOn.Substring(0, 11)</h6>
     <hr />
     <dl class="row">
-        <dd class="col-sm-8">
-            @Html.Raw(Model.Content)
+        <dd class="col-sm-8" style="white-space: pre-line;">
+            @Model.Content
         </dd>
     </dl>
 </div>

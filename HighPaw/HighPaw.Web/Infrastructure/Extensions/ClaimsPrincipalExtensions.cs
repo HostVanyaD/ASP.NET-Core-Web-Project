@@ -3,6 +3,7 @@
     using System.Security.Claims;
 
     using static Areas.Admin.AdminConstants;
+    using static HighPaw.Services.GlobalConstants;
 
     public static class ClaimsPrincipalExtensions
     {
@@ -14,5 +15,8 @@
 
         public static bool IsAdmin(this ClaimsPrincipal user)
             => user.IsInRole(AdminRoleName);
+
+        public static bool IsVolunteer(this ClaimsPrincipal user)
+            => user.IsInRole(VolunteerRoleName);
     }
 }
