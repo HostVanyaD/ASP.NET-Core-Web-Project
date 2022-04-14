@@ -1,0 +1,188 @@
+﻿@model EditPetServiceModel
+
+@{
+    ViewBag.Title = "Edit Pet's Details";
+}
+
+<section class="page-title" style="margin-top: 5rem;">
+    <div class="row align-items-center justify-content-center height100px">
+        <div class="col-auto">
+            <div class="page-title-content">
+                <div class="title-border">
+                    <h1 class="text text-uppercase font-weight-bold">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<form method="post" asp-controller="Pets" asp-action="Edit">
+    <div class="row row-cols-3 justify-content-evenly" style="margin-top: 2rem">
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label" asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label" asp-for="Breed">Breed</label>
+                <input asp-for="Breed" class="form-control">
+                <span asp-validation-for="Breed" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label" asp-for="Age">Age</label>
+                <input asp-for="Age" class="form-control">
+                <span asp-validation-for="Age" class="small text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-3 justify-content-evenly" style="margin-top: 2rem">
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label" asp-for="Color">Color</label>
+                <input asp-for="Color" class="form-control">
+                <span asp-validation-for="Color" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label" asp-for="MicrochipId">MicrochipId</label>
+                <input asp-for="MicrochipId" class="form-control">
+                <span asp-validation-for="MicrochipId" class="small text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Image URL -->
+        <div class="col">
+            <div class="form-outline mb-4">
+                <label class="form-label" asp-for="ImageUrl">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-evenly">
+        <!-- Gender Dropdown -->
+        <div class="form-group col-auto" style="margin-top: 20px;">
+            <label asp-for="Gender"></label>
+            <select asp-for="Gender" class="form-control">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+            </select>
+            <span asp-validation-for="Gender" class="small text-danger"></span>
+        </div>       
+        <!-- PetType Dropdown -->
+         <div class="form-group col-auto" style="margin-top: 20px;">
+            <label asp-for="PetType"></label>
+            <select asp-for="PetType" class="form-control">
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+            </select>
+            <span asp-validation-for="PetType" class="small text-danger"></span>
+        </div>
+
+        <!-- Size Dropdown -->
+        <div class="form-group col-auto" style="margin-top: 20px;">
+            <label asp-for="SizeCategoryId"></label>
+            <select asp-for="SizeCategoryId" class="form-control">
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <span asp-validation-for="SizeCategoryId" class="small text-danger"></span>
+        </div>
+        <!-- Shelter Dropdown -->
+        <div class="form-group col-auto" style="margin-top: 20px;">
+            <label asp-for="ShelterId"></label>
+            <select asp-for="ShelterId" class="form-control">
+                @foreach (var shelter in Model.Shelters)
+                {
+                    <option value="@shelter.Id">@shelter.Name</option>
+                }
+            </select>
+            <span asp-validation-for="ShelterId" class="small text-danger"></span>
+        </div>
+    </div>
+
+
+    <!-- IsLost -->
+    <div class="row justify-content-evenly">
+    <div class="btn-group col-auto" style="margin-right: 30px; margin-top: 30px;">
+        <label>
+            I Lost It
+            <div class="form-check form" style="margin-top: 10px;">
+                <input asp-for="IsLost" class="form-check-input" type="radio" name="IsLost" value="True">
+                <label class="form-check-label" asp-for="IsLost">Yes</label>
+            </div>
+            <div class="form-check form" style="margin-top: 10px;">
+                <input asp-for="IsLost" class="form-check-input" type="radio" name="IsLost" value="False">
+                <label class="form-check-label" asp-for="IsLost">No</label>
+            </div>
+        </label>
+        <div class="col-auto" style="margin-left: 30px;">
+            <div class="form-outline">
+                <label class="form-label" asp-for="LastSeenLocation">Last seen location</label>
+                <input asp-for="LastSeenLocation" class="form-control" placeholder="Enter address here...">
+                <span asp-validation-for="LastSeenLocation" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="col-auto" style="margin-left: 30px;">
+            <div class="form-outline">
+                <label class="form-label" asp-for="LostDate">Lost date</label>
+                <input asp-for="LostDate" class="form-control" placeholder="Enter date here...">
+                <span asp-validation-for="LostDate" class="small text-danger"></span>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- IsFound -->
+    <div class="row justify-content-evenly">
+    <div class="btn-group col-auto" style="margin-right: 30px; margin-top: 30px;">
+        <label>
+            I Found It
+            <div class="form-check form" style="margin-top: 10px">
+                <input asp-for="IsFound" class="form-check-input" type="radio" name="IsFound" value="True">
+                <label class="form-check-label" asp-for="IsFound">Yes</label>
+            </div>
+            <div class="form-check form" style="margin-top: 10px">
+                <input asp-for="IsFound" class="form-check-input" type="radio" name="IsFound" value="False">
+                <label class="form-check-label" asp-for="IsFound">No</label>
+            </div>
+        </label>
+        <div class="col-auto" style="margin-left: 30px;">
+            <div class="form-outline">
+                <label class="form-label" asp-for="FoundLocation">Found location</label>
+                <input asp-for="FoundLocation" class="form-control" placeholder="Enter address here...">
+                <span asp-validation-for="FoundLocation" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="col-auto" style="margin-left: 30px;">
+            <div class="form-outline">
+                <label class="form-label" asp-for="FoundDate">Found date</label>
+                <input asp-for="FoundDate" class="form-control" placeholder="Enter date here...">
+                <span asp-validation-for="FoundDate" class="small text-danger"></span>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="row align-items-center justify-content-center" style="margin-top: 30px;">
+        <div class="col-auto">
+            <input class="btn btn-outline-success mt-3" type="submit" value="Add" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

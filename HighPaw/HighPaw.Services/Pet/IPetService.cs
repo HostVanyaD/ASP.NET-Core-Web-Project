@@ -38,6 +38,12 @@
             int SizeCategoryId,
             int ShelterId);
 
+        public void Edit(EditPetServiceModel model);
+
+        public EditPetServiceModel GetById(int? id);
+
+        public bool DoesExist(int id);
+
         public IEnumerable<PetListingServiceModel> All();
 
         public PetQueryServiceModel All(

@@ -14,6 +14,12 @@
 
         public ArticleServiceModel Read(int id);
 
+        public void Edit(ArticleServiceModel model);
+
+        public ArticleServiceModel GetById(int? id);
+
+        public bool DoesExist(int id);
+
         public void Delete(int id);
 
         public IEnumerable<ArticleServiceModel> All();

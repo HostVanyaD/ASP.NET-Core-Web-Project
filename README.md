@@ -12,11 +12,11 @@ ASP.NET Core App for the final project at [SoftUni](https://softuni.bg/).
 - Logged Users:
   - Only registered users can adopt a pet.
   - Can add lost or found pets.
-  - Can write an article or story.
   - Can become a volunteer.
 - Vlunteers:
+  - Can write an article or story.
   - Can help admins by creating events.
-  - Provide essential support for humane societies by caring for animals until they are adopted.
+  - Provide essential support by caring for animals until they are adopted.
 - Admin
   - Can manage shelters, pets, articles and events.
   

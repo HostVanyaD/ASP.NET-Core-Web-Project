@@ -10,7 +10,8 @@
 <section class="py-9 pt-md-5">
     <div class="container">
         <partial name="_AdminMenuPartial" />
-<a asp-controller="Articles" asp-action="Create" class="btn btn-outline-success mb-3" style="color: #fdc57b;">Create New</a>
+        <a asp-controller="Articles" asp-action="Create" class="btn btn-outline-success mb-3" style="color: #fdc57b;">Create New</a>
+
         <div class="col-12">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -38,6 +39,7 @@
                         <td>@article.ArticleType</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-start">
+                                <a asp-controller="Articles" asp-action="Edit" asp-route-id="@article.Id" class="btn btn-info btn-sm">Edit</a>
                                 <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article from the database?')">Delete</a>
                             </div>
                         </td>

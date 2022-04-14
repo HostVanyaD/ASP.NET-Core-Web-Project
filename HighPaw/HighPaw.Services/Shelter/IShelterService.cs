@@ -17,6 +17,12 @@
             string description,
             string website);
 
+        public void Edit(ShelterServiceModel model);
+
+        public ShelterServiceModel GetById(int? id);
+
+        public bool DoesExist(int id);
+
         public void Delete(int id);
     }
 }

@@ -50,6 +50,42 @@
             return articleData.Id;
         }
 
+        public void Edit(ArticleServiceModel model)
+        {
+            var article = this.data
+                .Articles
+                .FirstOrDefault(e => e.Id == model.Id);
+
+            article.Title = model.Title;
+            article.Content = model.Content;
+            article.ImageUrl = model.ImageUrl;
+            article.CreatorName = model.CreatorName;
+            article.ArticleType = Enum.Parse<ArticleType>(model.ArticleType);
+            article.CreatedOn = DateTime.Parse(model.CreatedOn);
+
+            this.data.Update(article);
+            this.data.SaveChanges();
+        }
+
+        public ArticleServiceModel GetById(int? id)
+            => this.data
+                .Articles
+                .Where(e => e.Id == id)
+                .ProjectTo<ArticleServiceModel>(this.mapper)
+                .FirstOrDefault();
+
+        public bool DoesExist(int id)
+            => this.data
+                .Articles
+                .Any(e => e.Id == id);
+
+        public ArticleServiceModel Read(int id)
+            => this.data
+                .Articles
+                .Where(a => a.Id == id)
+                .ProjectTo<ArticleServiceModel>(this.mapper)
+                .FirstOrDefault();
+
         public void Delete(int id)
         {
             var articleToDelete = this.data
@@ -62,12 +98,5 @@
 
             this.data.SaveChanges();
         }
-
-        public ArticleServiceModel Read(int id)
-            => this.data
-                .Articles
-                .Where(a => a.Id == id)
-                .ProjectTo<ArticleServiceModel>(this.mapper)
-                .FirstOrDefault();
     }
 }

@@ -49,6 +49,35 @@
             return shelterData.Id;
         }
 
+        public void Edit(ShelterServiceModel model)
+        {
+            var shelter = this.data
+                .Shelters
+                .FirstOrDefault(e => e.Id == model.Id);
+
+            shelter.Name = model.Name;
+            shelter.Address = model.Address;
+            shelter.Description = model.Description;
+            shelter.PhoneNumber = model.PhoneNumber;
+            shelter.Email = model.Email;
+            shelter.Website = model.Website;           
+
+            this.data.Update(shelter);
+            this.data.SaveChanges();
+        }
+
+        public ShelterServiceModel GetById(int? id)
+            => this.data
+                .Shelters
+                .Where(e => e.Id == id)
+                .ProjectTo<ShelterServiceModel>(this.mapper)
+                .FirstOrDefault();
+
+        public bool DoesExist(int id)
+            => this.data
+                .Shelters
+                .Any(e => e.Id == id);
+
         public IEnumerable<ShelterServiceModel> All()
              => this.data
                 .Shelters

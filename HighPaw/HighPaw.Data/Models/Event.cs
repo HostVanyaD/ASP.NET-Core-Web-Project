@@ -11,7 +11,7 @@
 
         [Required]
         [MaxLength(TitleMaxLength)]
-        public string Title { get; init; }
+        public string Title { get; set; }
 
         [Required]
         public string Description { get; set; }

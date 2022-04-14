@@ -13,7 +13,7 @@
 
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name { get; init; }
+        public string Name { get; set; }
 
         [Required]
         [Url]

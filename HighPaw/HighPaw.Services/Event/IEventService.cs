@@ -14,6 +14,12 @@
             string location,
             DateTime date);
 
+        public void Edit(EventServiceModel model);
+
+        public EventServiceModel GetById(int? id);
+
+        public bool DoesExist(int id);
+
         public void Delete(int id);
     }
 }

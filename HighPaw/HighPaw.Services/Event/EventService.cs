@@ -49,6 +49,33 @@
             return eventData.Id;
         }
 
+        public void Edit(EventServiceModel model)
+        {
+            var eventToEdit = this.data
+                .Events
+                .FirstOrDefault(e => e.Id == model.Id);
+
+            eventToEdit.Title = model.Title;
+            eventToEdit.Description = model.Description;
+            eventToEdit.Location = model.Location;
+            eventToEdit.Date = DateTime.Parse(model.Date);
+
+            this.data.Update(eventToEdit);
+            this.data.SaveChanges();
+        }
+
+        public EventServiceModel GetById(int? id)
+            => this.data
+                .Events
+                .Where(e => e.Id == id)
+                .ProjectTo<EventServiceModel>(this.mapper)
+                .FirstOrDefault();
+
+        public bool DoesExist(int id)
+            => this.data
+                .Events
+                .Any(e => e.Id == id);
+
         public void Delete(int id)
         {
             var eventToDelete = this.data

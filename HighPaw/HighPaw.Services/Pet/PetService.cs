@@ -118,6 +118,45 @@
             return petData.Id;
         }
 
+        public void Edit(EditPetServiceModel model)
+        {
+            var pet = this.data
+                .Pets
+                .FirstOrDefault(e => e.Id == model.Id);
+
+            pet.Name = model.Name;
+            pet.ImageUrl = model.ImageUrl;
+            pet.PetType = Enum.Parse<PetType>(model.PetType);
+            pet.Breed = model.Breed;
+            pet.Age = model.Age;
+            pet.Gender = model.Gender;
+            pet.Color = model.Color;
+            pet.MicrochipId = model.MicrochipId;
+            pet.IsLost = model.IsLost;
+            pet.LastSeenLocation = model.LastSeenLocation;
+            pet.LostDate = model.LostDate;
+            pet.IsFound = model.IsFound;
+            pet.FoundLocation = model.FoundLocation;
+            pet.FoundDate = model.FoundDate;
+            pet.SizeCategoryId = model.SizeCategoryId;
+            pet.ShelterId = model.ShelterId;
+
+            this.data.Update(pet);
+            this.data.SaveChanges();
+        }
+
+        public EditPetServiceModel GetById(int? id)
+            => this.data
+                .Pets
+                .Where(e => e.Id == id)
+                .ProjectTo<EditPetServiceModel>(this.mapper)
+                .FirstOrDefault();
+
+        public bool DoesExist(int id)
+            => this.data
+                .Pets
+                .Any(e => e.Id == id);
+
         public IEnumerable<PetListingServiceModel> All()
             => this.data
                 .Pets

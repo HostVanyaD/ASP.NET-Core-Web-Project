@@ -41,6 +41,42 @@
             return RedirectToAction(nameof(All));
         }
 
+        public IActionResult Edit(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            var model = this.shelters
+                .GetById(id);
+
+            if (model is null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ShelterServiceModel model)
+        {
+            if (!this.shelters.DoesExist(model.Id))
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.shelters.Edit(model);
+
+            return RedirectToAction(nameof(All));
+        }
+
         public IActionResult Delete(int id)
         {
             this.shelters.Delete(id);
