@@ -12,6 +12,8 @@
             string creatorName,
             string articleType);
 
+        public IEnumerable<ArticleServiceModel> Latest();
+
         public ArticleServiceModel Read(int id);
 
         public void Edit(ArticleServiceModel model);

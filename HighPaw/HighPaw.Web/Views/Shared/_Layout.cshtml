@@ -60,85 +60,43 @@
     <div class="container my-4">
 
         <footer class="bg text-center text-lg-start text-white" style="background-color: #fdc57b;">
-            <div class="container p-4">
+            <div class="container pt-5 border-bottom">
                 <div class="row my-4">
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0 mx-4">
 
                         <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
                             <img src="https://mdbootstrap.com/img/Photos/new-templates/animal-shelter/logo.png" height="70" alt=""
                                  loading="lazy" />
                         </div>
 
-                        <p class="text-center">Homless animal shelter The budgetary unit of the Capital City of Warsaw</p>
-
-                        <ul class="list-unstyled d-flex flex-row justify-content-center">
-                            <li>
-                                <a class="text-white px-2" href="#!">
-                                    <i class="fas fa-facebook-square"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="text-white px-2" href="#!">
-                                    <i class="fas fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="text-white ps-2" href="#!">
-                                    <i class="fas fa-youtube"></i>
-                                </a>
-                            </li>
-                        </ul>
+                        <p class="text-center">Our goal is to keep pets out of the shelters</p>
 
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
                         <h5 class="text-uppercase mb-4">Animals</h5>
 
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>When your pet is missing</a>
+                                <a asp-controller="Pets" asp-action="Add" class="text-white"><i class="fas fa-paw pe-3"></i>When your pet is missing</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Recently found</a>
+                                <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Recently found</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>How to adopt?</a>
+                                <a asp-controller="Home" asp-action="HowToAdopt" class="text-white"><i class="fas fa-paw pe-3"></i>How to adopt?</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
+                                <a asp-controller="Pets" asp-action="All" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Material gifts</a>
+                                <a asp-controller="Volunteers" asp-action="Become" class="text-white"><i class="fas fa-paw pe-3"></i>Be Our Hero</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Help with walks</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Volunteer activities</a>
+                                <a asp-controller="Home" asp-action="About" class="text-white"><i class="fas fa-paw pe-3"></i>Who we are</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase mb-4">Animals</h5>
-
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>General information</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>About the shelter</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Job</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Tenders</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
                         <h5 class="text-uppercase mb-4">Contact</h5>
 
                         <ul class="list-unstyled">
@@ -160,7 +118,6 @@
             </div>
         </footer>
     </div>
-    <!-- End of .container -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

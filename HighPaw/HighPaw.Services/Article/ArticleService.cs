@@ -50,6 +50,14 @@
             return articleData.Id;
         }
 
+        public IEnumerable<ArticleServiceModel> Latest()
+            => this.data
+                .Articles
+                .OrderByDescending(c => c.Id)
+                .ProjectTo<ArticleServiceModel>(this.mapper)
+                .Take(6)
+                .ToList();
+
         public void Edit(ArticleServiceModel model)
         {
             var article = this.data

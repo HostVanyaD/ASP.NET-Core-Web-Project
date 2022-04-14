@@ -1,16 +1,24 @@
 ﻿namespace HighPaw.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
     using HighPaw.Services.Pet;
     using HighPaw.Services.Pet.Models;
-    using Microsoft.AspNetCore.Mvc;
+    using HighPaw.Services.Article;
     using static Areas.Admin.AdminConstants;
+    using HighPaw.Web.Models.Home;
 
     public class HomeController : Controller
     {
         private readonly IPetService pets;
+        private readonly IArticleService articles;
 
-        public HomeController(IPetService pets)
-            => this.pets = pets;
+        public HomeController(
+            IPetService pets,
+            IArticleService articles)
+        {
+            this.pets = pets;
+            this.articles = articles;
+        }
 
         public IActionResult Index()
         {
@@ -20,8 +28,15 @@
             }
 
             var latestPets = this.pets.Latest();
+            var latestArticles = this.articles.Latest();
 
-            return View(latestPets);
+            var listing = new PetArticleListingViewModel
+            {
+                LatestPets = latestPets,
+                LatestArticles = latestArticles
+            };
+
+            return View(listing);
         }
 
         public IActionResult Work()

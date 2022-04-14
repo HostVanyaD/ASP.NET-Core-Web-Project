@@ -1,4 +1,4 @@
-﻿@model List<PetListingServiceModel>
+﻿@model PetArticleListingViewModel
 
 @{
     ViewBag.Title = "Welcome";
@@ -45,14 +45,14 @@ margin-top: 5rem">
 <!-- Intro -->
 
 
-@if (Model.Any())
+@if (Model.LatestPets.Any())
 {
     <hr>
     <h3 class="text-center display-4">-Recently Uploaded Pets-</h3>
     <hr>
     <div class="row row-cols-4 row-cols-md-3 g-4">
 
-        @foreach (var pet in Model)
+        @foreach (var pet in Model.LatestPets)
         {
 
             <div class="col-lg-4 mb-4">
@@ -73,4 +73,30 @@ margin-top: 5rem">
     <div class="d-grid gap-2">
         <a class="btn btn-outline-warning" asp-controller="Pets" asp-action="All">View All</a>
     </div>
+}
+
+@if (Model.LatestArticles.Any())
+{
+    <hr class="mt-5">
+    <h3 class="text-center display-4">-Latest Articles And Stories-</h3>
+    <hr>
+    <section id="gallery" style="margin-top: 2rem;">
+        <div class="container-fluid mx-auto row row-cols-4 row-cols-md-2 row-cols-sm-1 g-4">
+            @foreach (var article in Model.LatestArticles)
+            {
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@article.ImageUrl" class="card-img-top" style="width: 100%; height: 15vw; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@article.Title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@article.CreatorName</h6>
+                            <p class="card-text">@Html.Raw(article.Content.Substring(0, 120)) . . .</p>
+                            <h6 class="card-subtitle mb-2 text-muted">@article.CreatedOn.Substring(0, 11)</h6>
+                            <a asp-controller="Articles" asp-action="Read" asp-route-id="@article.Id" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
 }

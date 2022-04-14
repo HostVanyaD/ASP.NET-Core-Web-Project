@@ -2,7 +2,7 @@
 {
     using HighPaw.Services.Shelter.Models;
 
-    public class PetDetailsServiceModel
+    public class PetDetailsServiceModel : PetServiceModel
     {
         public int Id { get; init; }
 

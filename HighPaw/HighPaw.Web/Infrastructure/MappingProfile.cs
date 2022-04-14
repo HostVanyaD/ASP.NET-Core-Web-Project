@@ -26,6 +26,8 @@
 
             this.CreateMap<Pet, PetListingServiceModel>()
                 .ForMember(p => p.ShelterName, cfg => cfg.MapFrom(p => p.Shelter.Address));
+            
+            this.CreateMap<Pet, EditPetServiceModel>();
 
             this.CreateMap<Pet, PetDetailsServiceModel>()
                 .ForMember(pd => pd.PetType, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? DogPetType : CatPetType))
