@@ -11,16 +11,16 @@
     {
         private readonly HighPawDbContext data;
         private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly SignInManager<User> signInManager;
 
         public VolunteerService(
             HighPawDbContext data,
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+            SignInManager<User> signInManager)
         {
             this.data = data;
             this.userManager = userManager;
-            this.roleManager = roleManager;
+            this.signInManager = signInManager;
         }
 
         public bool IsVolunteer(string id)
@@ -45,23 +45,17 @@
             };
 
             this.data.Volunteers.Add(volunteer);
-            this.data.SaveChanges();
 
             Task
                 .Run(async () =>
                 {
-                    if (await roleManager.RoleExistsAsync(VolunteerRoleName))
-                    {
-                        return;
-                    }
-
-                    var role = new IdentityRole { Name = VolunteerRoleName };
-
-                    await roleManager.CreateAsync(role);
-
                     var user = await userManager.FindByIdAsync(userId);
 
                     await userManager.AddToRoleAsync(user, VolunteerRoleName);
+
+                    await data.SaveChangesAsync();
+
+                    await signInManager.RefreshSignInAsync(user);
                 })
                 .GetAwaiter()
                 .GetResult();

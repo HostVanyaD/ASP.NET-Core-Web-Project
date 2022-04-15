@@ -13,14 +13,33 @@
     using FluentAssertions;
     using HighPaw.Services.Pet.Models;
     using System.Linq;
+    using HighPaw.Tests.Mocks;
 
-    public class PetServiceTests
+    public class PetServiceTests : IDisposable
     {
+        private readonly Data.HighPawDbContext dbContext;
+        private readonly IMapper mapper;
+        private readonly PetService service;
+
+        public PetServiceTests()
+        {
+            dbContext = DatabaseMock.Instance;
+            var myProfile = new MappingProfile();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+            mapper = new Mapper(configuration);
+            service = new PetService(dbContext, mapper);
+        }
+
+        public void Dispose()
+        {
+            dbContext.Dispose();
+        }
+
         [Fact]
         public void Latest_ShouldReturnLast3AddedPetsInDescendingOrder()
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultiplePets();
+            GetDbContextWithMultiplePets();
 
             // Act
             var result = service
@@ -32,15 +51,13 @@
                 .HaveCount(3)
                 .And
                 .AllBeOfType<PetListingServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Details_ShouldReturnCorrectModel()
         {
             // Arrange
-            var (service, dbContext, petId) = GetServiceDbContextWithASinglePetAndItsId();
+            var petId = GetPetIdFromDbContextWithASinglePet();
 
             // Act
             var result = service
@@ -50,23 +67,12 @@
             result
                 .Should()
                 .BeOfType<PetDetailsServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void AllLost_ShouldReturnCollectionWithLostPetsOnly()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .Add(new SizeCategory
@@ -124,23 +130,12 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<PetListingServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void AllFound_ShouldReturnCollectionWithFoundPetsOnly()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .Add(new SizeCategory
@@ -198,15 +193,13 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<PetListingServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Adopt_ShouldSetPropertyCorrectly()
         {
             // Arrange
-            var (service, dbContext, petId) = GetServiceDbContextWithASinglePetAndItsId();
+            var petId = GetPetIdFromDbContextWithASinglePet();
 
             // Act
             service
@@ -222,23 +215,12 @@
             result
                 .Should()
                 .BeTrue();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void AllCategories_ShouldReturnCollectionWithExistingCategories()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .AddRange(new List<SizeCategory>
@@ -273,23 +255,12 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<SizeCategoryServiceModel>();
-
-            dbContext.Dispose();
         }
         
         [Fact]
         public void CategoryExists_ShouldReturnCorrectBool()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             var categoryId = 1;
 
             dbContext
@@ -311,8 +282,6 @@
             result
                 .Should()
                 .BeTrue();
-
-            dbContext.Dispose();
         }
 
         [Theory]
@@ -336,15 +305,6 @@
             int shelterId)
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .Add(new SizeCategory
@@ -393,15 +353,107 @@
             result
                 .Should()
                 .Be(expectedValue);
+        }
 
-            dbContext.Dispose();
+        [Fact]
+        public void Edit_ShouldUpdateGivenPet()
+        {
+            var petId = 1;
+
+            var initialModel = new Pet
+            {
+                Id = petId,
+                Name = "Pet",
+                ImageUrl = "ImageUrl",
+                PetType = PetType.Dog,
+                Breed = "Bulldog",
+                Age = 1,
+                Gender = "Male",
+                Color = "Black",
+                MicrochipId = null,
+                IsLost = true,
+                LastSeenLocation = "Location",
+                LostDate = null,
+                IsFound = false,
+                FoundLocation = null,
+                FoundDate = null,
+                SizeCategoryId = 1,
+                ShelterId = 2
+            };
+
+            dbContext
+                .Pets
+                .Add(initialModel);
+
+            dbContext.SaveChanges();
+
+            var editModel = new EditPetServiceModel
+            {
+                Id = petId,
+                Name = "Pet",
+                ImageUrl = "ImageUrl",
+                PetType = "Dog",
+                Breed = "Bulldog",
+                Age = 1,
+                Gender = "Female",
+                Color = "Black",
+                MicrochipId = null,
+                IsLost = true,
+                LastSeenLocation = "Location",
+                LostDate = null,
+                IsFound = false,
+                FoundLocation = null,
+                FoundDate = null,
+                SizeCategoryId = 1,
+                ShelterId = 2
+            };
+
+            // Act
+            service.Edit(editModel);
+
+            // Assert
+            initialModel
+                .Gender
+                .Should()
+                .BeEquivalentTo(editModel.Gender);
+        }
+
+        [Fact]
+        public void GetById_ShouldReturnCorrectPetIsPresent()
+        {
+            // Arrange
+            var petId = GetPetIdFromDbContextWithASinglePet();
+
+            // Act
+            var result = service.GetById(petId);
+
+            // Assert
+            result
+                .Id
+                .Should()
+                .Be(petId);
+        }
+        
+        [Fact]
+        public void DoesExist_ShouldReturnTrueIfPetIsPresent()
+        {
+            // Arrange
+            var petId = GetPetIdFromDbContextWithASinglePet();
+
+            // Act
+            var result = service.DoesExist(petId);
+
+            // Assert
+            result
+                .Should()
+                .BeTrue();
         }
 
         [Fact]
         public void All_ShouldReturnCollectionOfListingPetModel()
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultiplePets();
+            GetDbContextWithMultiplePets();
 
             // Act
             var result = service
@@ -417,8 +469,6 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<PetListingServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Theory]
@@ -430,7 +480,7 @@
             string searchString)
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultiplePets();
+             GetDbContextWithMultiplePets();
 
             // Act
             var result = service
@@ -440,8 +490,6 @@
             result
                 .Should()
                 .BeOfType<PetQueryServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Theory]
@@ -452,7 +500,7 @@
             string filters)
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultiplePets();
+            GetDbContextWithMultiplePets();
 
             // Act
             var result = service
@@ -462,15 +510,13 @@
             result
                 .Should()
                 .BeOfType<PetQueryServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Delete_ShouldRemovePetWithGivenIdFromDb_AndReturnTrueIfSucceeded()
         {
             // Arrange
-            var (service, dbContext, petId) = GetServiceDbContextWithASinglePetAndItsId();
+            var petId = GetPetIdFromDbContextWithASinglePet();
 
             // Act
             var result = service
@@ -486,15 +532,13 @@
                 .Count()
                 .Should()
                 .Be(0);
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Delete_ShouldReturnFalseIfPetIdIsNotPresent()
         {
             // Arrange
-            var (service, dbContext, petId) = GetServiceDbContextWithASinglePetAndItsId();
+            var petId = GetPetIdFromDbContextWithASinglePet();
 
             var invalidId = petId + 1;
 
@@ -506,21 +550,10 @@
             result
                 .Should()
                 .BeFalse();
-
-            dbContext.Dispose();
         }
 
-        private static (PetService, HighPawDbContext) GetServiceAndDbContextWithMultiplePets()
+        private void GetDbContextWithMultiplePets()
         {
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .Add(new SizeCategory
@@ -559,21 +592,10 @@
 
             dbContext.Pets.AddRange(pets);
             dbContext.SaveChanges();
-
-            return (service, dbContext);
         }
         
-        private static (PetService, HighPawDbContext, int) GetServiceDbContextWithASinglePetAndItsId() 
+        private int GetPetIdFromDbContextWithASinglePet() 
         { 
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new PetService(dbContext, mapper);
-
             dbContext
                 .SizeCategories
                 .Add(new SizeCategory
@@ -612,7 +634,7 @@
 
             dbContext.SaveChanges();
 
-            return (service, dbContext, petId);
+            return petId;
         }
     }
 }

@@ -2,12 +2,11 @@
 {
     using System;
     using System.Linq;
-    using Microsoft.EntityFrameworkCore;
     using Xunit;
     using FluentAssertions;
-    using HighPaw.Data;
-    using HighPaw.Services.Volunteer;
     using HighPaw.Data.Models;
+    using HighPaw.Services.Volunteer;
+    using HighPaw.Tests.Mocks;
 
     public class VlunteerServiceTests
     {
@@ -15,10 +14,11 @@
         public void IsVolunteer_ShouldReturnTrueIfGivenIdExists()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
+            var dbContext = DatabaseMock.Instance;
+            var userManagerMock = UserManagerMock.Instance;
+            var signInManagerMock = SignInManagerMock.Instance;
 
-            var service = new VolunteerService(dbContext);
+            var service = new VolunteerService(dbContext, userManagerMock, signInManagerMock);
 
             var user = new User { Id = Guid.NewGuid().ToString(), FullName = "Name" };
 
@@ -62,10 +62,11 @@
             string userId)
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
+            var dbContext = DatabaseMock.Instance;
+            var userManagerMock = UserManagerMock.Instance;
+            var signInManagerMock = SignInManagerMock.Instance;
 
-            var service = new VolunteerService(dbContext);
+            var service = new VolunteerService(dbContext, userManagerMock, signInManagerMock);
 
             var user = new User { Id = userId, FullName = "Name" };
 

@@ -2,51 +2,66 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.EntityFrameworkCore;
     using Xunit;
     using AutoMapper;
     using FluentAssertions;
-    using HighPaw.Data;
     using HighPaw.Data.Models;
     using HighPaw.Data.Models.Enums;
     using HighPaw.Services.Article;
     using HighPaw.Services.Article.Models;
     using HighPaw.Web.Infrastructure;
+    using HighPaw.Tests.Mocks;
 
-    public class ArticleServiceTests
+    public class ArticleServiceTests : IDisposable
     {
+        private const string testTitle = "Title";
+        private const string testContent = "Content";
+        private const ArticleType testArticleType = ArticleType.Article;
+        private const string testImageUrl = "image";
+        private const string testCreatorName = "Test";
+
+
+        private readonly Data.HighPawDbContext dbContext;
+        private readonly IMapper mapper;
+        private readonly ArticleService service;
+
+        public ArticleServiceTests()
+        {
+            dbContext = DatabaseMock.Instance;
+            var myProfile = new MappingProfile();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+            mapper = new Mapper(configuration);
+            service = new ArticleService(dbContext, mapper);
+        }
+
+        public void Dispose()
+        {
+            dbContext.Dispose();
+        }
+
         [Fact]
         public void All_ShouldReturnData()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ArticleService(dbContext, mapper);
-
             dbContext
                 .Articles
                 .AddRange(new List<Article>
                 {
                     new Article
                     {
-                        Title = "Title",
-                        Content = "Content",
-                        ArticleType = ArticleType.Article,
-                        ImageUrl = "image",
-                        CreatorName = "Test"
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
                     },
                     new Article
                     {
-                        Title = "Title",
-                        Content = "Content",
-                        ArticleType = ArticleType.Article,
-                        ImageUrl = "image",
-                        CreatorName = "Test"
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
                     }
                 });
 
@@ -61,25 +76,13 @@
                 .HaveCount(2)
                 .And
                 .AllBeOfType<ArticleServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Theory]
-        [InlineData("Title", "Content", "Image", "CreatorName", "Article")]
+        [InlineData(testTitle, testContent, testImageUrl, testCreatorName, "Article")]
         public void Create_ShouldCreateNewArticleAndAddItToDb_AndReturnItsId(
             string title, string content, string imageUrl, string creatorName, string articleType)
         {
-            // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ArticleService(dbContext, mapper);
-
             // Act
             var result = service
                 .Create(title,
@@ -100,8 +103,6 @@
                 .HaveCount(1)
                 .And
                 .AllBeOfType<ArticleServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Theory]
@@ -109,16 +110,6 @@
         public void Create_ShouldThorwDbUpdateException_WhenModelStateIsNotValid(
             string title, string content, string imageUrl, string creatorName, string articleType)
         {
-            // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ArticleService(dbContext, mapper);
-
             // Act
             Action act = () => service
                 .Create(title,
@@ -132,23 +123,12 @@
             act
                 .Should()
                 .Throw<Microsoft.EntityFrameworkCore.DbUpdateException>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Delete_ShouldRemoveTheArticleFromDb()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ArticleService(dbContext, mapper);
-
             var articleId = 1;
 
             dbContext
@@ -156,11 +136,11 @@
                 .Add(new Article
                 {
                     Id = articleId,
-                    Title = "Title",
-                    Content = "Content",
-                    ArticleType = ArticleType.Article,
-                    ImageUrl = "image",
-                    CreatorName = "Test"
+                    Title = testTitle,
+                    Content = testContent,
+                    ArticleType = testArticleType,
+                    ImageUrl = testImageUrl,
+                    CreatorName = testCreatorName
                 });
 
             dbContext.SaveChanges();
@@ -173,23 +153,12 @@
                 .Articles
                 .Should()
                 .HaveCount(0);
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Read_ShouldReturnAnArticleOfCorrectType()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ArticleService(dbContext, mapper);
-
             var articleId = 1;
 
             dbContext
@@ -197,11 +166,11 @@
                 .Add(new Article
                 {
                     Id = articleId,
-                    Title = "Title",
-                    Content = "Content",
-                    ArticleType = ArticleType.Article,
-                    ImageUrl = "image",
-                    CreatorName = "Test"
+                    Title = testTitle,
+                    Content = testContent,
+                    ArticleType = testArticleType,
+                    ImageUrl = testImageUrl,
+                    CreatorName = testCreatorName
                 });
 
             dbContext.SaveChanges();
@@ -214,8 +183,184 @@
             result
                 .Should()
                 .BeOfType<ArticleServiceModel>();
+        }
 
-            dbContext.Dispose();
+        [Fact]
+        public void Latest_ShouldReturnCollectionOfLatestArticles()
+        {
+            // Arrange
+            dbContext
+                .Articles
+                .AddRange(new List<Article>
+                {
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    },
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    },
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    },
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    },
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    },
+                    new Article
+                    {
+                        Title = testTitle,
+                        Content = testContent,
+                        ArticleType = testArticleType,
+                        ImageUrl = testImageUrl,
+                        CreatorName = testCreatorName
+                    }
+                });
+
+            dbContext.SaveChanges();
+
+            // Act
+            var result = service.Latest();
+
+            // Assert
+            result
+                .Should()
+                .HaveCount(6)
+                .And
+                .AllBeOfType<ArticleServiceModel>();
+        }
+
+        [Fact]
+        public void Edit_ShouldUpdateAnArticle()
+        {
+            // Arrange
+            var articleId = 1;
+
+            var initialModel = new Article
+            {
+                Id = articleId,
+                Title = testTitle,
+                Content = testContent,
+                ArticleType = testArticleType,
+                ImageUrl = testImageUrl,
+                CreatorName = testCreatorName
+            };
+
+            dbContext
+                .Articles
+                .Add(initialModel);
+
+            dbContext.SaveChanges();
+
+            var editModel = new ArticleServiceModel
+            {
+                Id = articleId,
+                Title = testTitle + "New",
+                Content = testContent + "New",
+                ArticleType = "Article",
+                ImageUrl = testImageUrl,
+                CreatorName = testCreatorName,
+                CreatedOn = "2022-3-30"
+            };
+
+            // Act
+            service.Edit(editModel);
+
+            // Assert
+            initialModel
+                .Title
+                .Should()
+                .BeEquivalentTo(editModel.Title);
+
+            initialModel
+                .Content
+                .Should()
+                .BeEquivalentTo(editModel.Content);
+        }
+
+        [Fact]
+        public void GetById_ShouldReturnCorrectArticleIsPresent()
+        {
+            // Arrange
+            var articleId = 1;
+
+            dbContext
+                .Articles
+                .Add(new Article
+                {
+                    Id = articleId,
+                    Title = testTitle,
+                    Content = testContent,
+                    ArticleType = testArticleType,
+                    ImageUrl = testImageUrl,
+                    CreatorName = testCreatorName
+                });
+
+            dbContext.SaveChanges();
+
+            // Act
+            var result = service.GetById(articleId);
+
+            // Assert
+            result
+                .Id
+                .Should()
+                .Be(articleId);
+        }
+
+        [Fact]
+        public void DoesExist_ShouldReturnTrueIfArticleIsPresent()
+        {
+            // Arrange
+            var articleId = 1;
+
+            dbContext
+                .Articles
+                .Add(new Article
+                {
+                    Id = articleId,
+                    Title = testTitle,
+                    Content = testContent,
+                    ArticleType = testArticleType,
+                    ImageUrl = testImageUrl,
+                    CreatorName = testCreatorName
+                });
+
+            dbContext.SaveChanges();
+
+            // Act
+            var result = service.DoesExist(articleId);
+
+            // Assert
+            result
+                .Should()
+                .BeTrue();
         }
     }
 }

@@ -42,3 +42,4 @@ ASP.NET Core App for the final project at [SoftUni](https://softuni.bg/).
 - js
 - xUnit
 - FluentAssertions
+- Moq

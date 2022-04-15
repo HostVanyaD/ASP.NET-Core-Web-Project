@@ -12,14 +12,41 @@
     using HighPaw.Services.Shelter;
     using HighPaw.Web.Infrastructure;
     using HighPaw.Services.Shelter.Models;
+    using HighPaw.Tests.Mocks;
 
-    public class ShelterServiceTests
+    public class ShelterServiceTests : IDisposable
     {
+        private const string testName = "TestName";
+        private const string testAddress = "TestAddress";
+        private const string testEmail = "test@email.com";
+        private const string testPhoneNumber = "+359888888888";
+        private const string testDescription = "Description";
+        private const string testWebsite = "sheter.com";
+
+
+        private readonly Data.HighPawDbContext dbContext;
+        private readonly IMapper mapper;
+        private readonly ShelterService service;
+
+        public ShelterServiceTests()
+        {
+            dbContext = DatabaseMock.Instance;
+            var myProfile = new MappingProfile();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+            mapper = new Mapper(configuration);
+            service = new ShelterService(dbContext, mapper);
+        }
+
+        public void Dispose()
+        {
+            dbContext.Dispose();
+        }
+
         [Fact]
         public void GetAllNames_ShouldReturnCollectionOfCorrectType()
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultipleShelters();
+            GetDbContextWithMultipleShelters();
 
             // Act
             var result = service
@@ -35,15 +62,13 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<ShelterNameServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void All_ShouldReturnCollectionOfCorrectType()
         {
             // Arrange
-            var (service, dbContext) = GetServiceAndDbContextWithMultipleShelters();
+            GetDbContextWithMultipleShelters();
 
             // Act
             var result = service
@@ -59,15 +84,13 @@
                 .HaveCount(expectedCount)
                 .And
                 .AllBeOfType<ShelterServiceModel>();
-
-            dbContext.Dispose();
         }
 
         [Fact]
         public void Delete_ShouldRemoveShelterWithGivenIdFromDb()
         {
             // Arrange
-            var (service, dbContext, shelterId) = GetServiceDbContextWithASingleShelterAndItsId();
+            var shelterId = GetShelterIdFromDbContextWithASingleShelter();
 
             // Act
             service
@@ -79,12 +102,10 @@
                 .Count()
                 .Should()
                 .Be(0);
-
-            dbContext.Dispose();
         }
 
         [Theory]
-        [InlineData("Shelter", "City", "shelter@shelter.com", "+359888888888", "Description", "sheter.com")]
+        [InlineData(testName, testAddress, testEmail, testPhoneNumber, testDescription, testWebsite)]
         public void Add_ShouldAddNewShelterToTheDb_AndReturnItsId(
             string name,
             string address,
@@ -93,15 +114,6 @@
             string description,
             string website)
         {
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ShelterService(dbContext, mapper);
-
             // Act
             var result = service
                 .Add(name, address, email, phoneNumber, description, website);
@@ -115,21 +127,90 @@
             result
                 .Should()
                 .Be(expectedValue);
-
-            dbContext.Dispose();
         }
 
-        private static (ShelterService, HighPawDbContext) GetServiceAndDbContextWithMultipleShelters()
+        [Fact]
+        public void Edit_ShouldUpdateGivenShelter()
         {
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
+            // Arrange
+            var shelterId = 1;
 
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
+            var initialModel = new Shelter
+            {
+                Id = shelterId,
+                Name = testName,
+                Address = testAddress,
+                Email = testEmail,
+                Description = testDescription,
+                PhoneNumber = testPhoneNumber,
+                Website = testWebsite
+            };
 
-            var service = new ShelterService(dbContext, mapper);
+            dbContext
+                .Shelters
+                .Add(initialModel);
 
+            dbContext.SaveChanges();
+
+            var editModel = new ShelterServiceModel
+            {
+                Id = shelterId,
+                Name = testName + "New",
+                Address = testAddress + "New",
+                Email = testEmail,
+                Description = testDescription,
+                PhoneNumber = testPhoneNumber,
+                Website = testWebsite
+            };
+
+            // Act
+            service.Edit(editModel);
+
+            // Arrange
+            initialModel
+                .Name
+                .Should()
+                .BeEquivalentTo(editModel.Name);
+
+            initialModel
+                .Address
+                .Should()
+                .BeEquivalentTo(editModel.Address);
+        }
+
+        [Fact]
+        public void GetById_ShouldReturnCorrectShelterIsPresent()
+        {
+            // Arrange
+            var shelterId = GetShelterIdFromDbContextWithASingleShelter();
+
+            // Act
+            var result = service.GetById(shelterId);
+
+            // Assert
+            result
+                .Id
+                .Should()
+                .Be(shelterId);
+        }
+
+        [Fact]
+        public void DoesExist_ShouldReturnTrueIfShelterIsPresent()
+        {
+            // Arrange
+            var shelterId = GetShelterIdFromDbContextWithASingleShelter();
+
+            // Act
+            var result = service.DoesExist(shelterId);
+
+            // Assert
+            result
+                .Should()
+                .BeTrue();
+        }
+
+        private void GetDbContextWithMultipleShelters()
+        {
             dbContext
                 .Shelters
                 .AddRange(new List<Shelter> {
@@ -153,21 +234,10 @@
                 });
 
             dbContext.SaveChanges();
-
-            return (service, dbContext);
         }
 
-        private static (ShelterService, HighPawDbContext, int) GetServiceDbContextWithASingleShelterAndItsId()
+        private int GetShelterIdFromDbContextWithASingleShelter()
         {
-            var options = new DbContextOptionsBuilder<HighPawDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            var dbContext = new HighPawDbContext(options);
-
-            var myProfile = new MappingProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            IMapper mapper = new Mapper(configuration);
-
-            var service = new ShelterService(dbContext, mapper);
-
             var shelterId = 1;
 
             dbContext
@@ -183,7 +253,7 @@
 
             dbContext.SaveChanges();
 
-            return (service, dbContext, shelterId);
+            return shelterId;
         }
     }
 }
