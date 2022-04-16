@@ -92,6 +92,15 @@
             int sizeCategoryId,
             int shelterId)
         {
+            if (isLost && lostDate == null)
+            {
+                lostDate = DateTime.UtcNow;
+            }
+            if (isFound && foundDate == null)
+            {
+                foundDate = DateTime.UtcNow;
+            }
+
             var petData = new Pet
             {
                 Name = name,

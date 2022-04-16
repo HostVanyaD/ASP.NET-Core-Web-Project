@@ -5,7 +5,7 @@
 }
 
 <article class="postcard light green">
-    <a class="postcard__img_link" href="#">
+    <a class="postcard__img_link">
         <img class="postcard__img" src="@Model.ImageUrl" alt="@Model.PetType @Model.Name" />
     </a>
     <div class="postcard__text">
@@ -28,11 +28,11 @@
                     <p>Microchip ID: @Model.MicrochipId</p>
                     @if(Model.IsFound)
                     {
-                        <p>Found Location: @Model.FoundLocation at @Model.FoundDate</p>
+                        <p>Found Location: @Model.FoundLocation on @Model.FoundDate.Substring(0, 16)</p>
                     }
                     @if(Model.IsLost)
                     {
-                        <p>Last seen: @Model.LastSeenLocation at @Model.LostDate</p>
+                        <p>Last seen: @Model.LastSeenLocation on @Model.LostDate.Substring(0, 16)</p>
                     }
                 </div>
                 <div class="column">
@@ -45,12 +45,20 @@
             </div>
         </div>
 
-        @if(!Model.IsAdopted)
+        @if(!Model.IsAdopted && !Model.IsLost)
         {
             <ul class="postcard__tagbox">
             <li class="tag__item play green">
                 <a asp-controller="Pets" asp-action="AdoptMe" asp-route-id="@Model.Id">
-                    <i class="fas fa-home mr-2"></i>Adopt me</a>
+                    <i class="fa-solid fa-house-chimney"></i> Adopt me</a>
+            </li>
+        </ul>
+        }
+        @if(Model.IsLost)
+        {
+            <ul class="postcard__tagbox">
+            <li class="tag__item play green">
+                If you have seen me please take me to the nearest shelter 💚
             </li>
         </ul>
         }
@@ -58,7 +66,7 @@
         {
             <ul class="postcard__tagbox">
             <li class="tag__item play green">
-                <a><i class="fa fa-smile-o"></i>I am adopted</a>
+                <a><i class="fa-solid fa-face-grin-hearts"></i> I am adopted</a>
             </li>
         </ul>
         }

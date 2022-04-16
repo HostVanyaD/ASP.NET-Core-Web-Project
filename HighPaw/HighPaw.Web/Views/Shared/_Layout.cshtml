@@ -86,7 +86,7 @@
                                 <a asp-controller="Home" asp-action="HowToAdopt" class="text-white"><i class="fas fa-paw pe-3"></i>How to adopt?</a>
                             </li>
                             <li class="mb-2">
-                                <a asp-controller="Pets" asp-action="All" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
+                                <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
                             </li>
                             <li class="mb-2">
                                 <a asp-controller="Volunteers" asp-action="Become" class="text-white"><i class="fas fa-paw pe-3"></i>Be Our Hero</a>
@@ -121,6 +121,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/de5e749819.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
