@@ -35,8 +35,8 @@
                             <td scope="col">@pet.ShelterName</td>
                             <td scope="col"> 
                                 <div class="d-grid gap-2 d-md-flex" style="align-items: center;">
-                                <a asp-controller="Pets" asp-action="Edit" asp-route-id="@pet.Id" class="btn btn-info btn-sm">Edit</a>
-                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet from the database?')">Delete</a>
+                                <a asp-controller="Pets" asp-action="Edit" asp-route-id="@pet.Id" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                <a asp-controller="Pets" asp-action="Delete" asp-route-id="@pet.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet from the database?')"><i class="fa-solid fa-trash"></i> Delete</a>
                             </div>
                             </td>
                         </tr>

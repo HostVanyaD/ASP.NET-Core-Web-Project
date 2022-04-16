@@ -12,112 +12,110 @@
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span style="color: #5e9693;">High</span><span style="color: #fdc57b;">Paw</span></a>
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if (!User.IsAdmin())
-                    {
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="HowToAdopt">How to adopt</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Pets" asp-action="AllLost">Lost pets</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Pets" asp-action="AllFound">Found pets</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Articles" asp-action="All">Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Events" asp-action="All">Events</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                            </li>
-                        </ul>
-                    }
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container app">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <div class="container my-4">
-
-        <footer class="bg text-center text-lg-start text-white" style="background-color: #fdc57b;">
-            <div class="container pt-5 border-bottom">
-                <div class="row my-4">
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0 mx-4">
-
-                        <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
-                            <img src="https://mdbootstrap.com/img/Photos/new-templates/animal-shelter/logo.png" height="70" alt=""
-                                 loading="lazy" />
-                        </div>
-
-                        <p class="text-center">Our goal is to keep pets out of the shelters</p>
-
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
-                        <h5 class="text-uppercase mb-4">Animals</h5>
-
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a asp-controller="Pets" asp-action="Add" class="text-white"><i class="fas fa-paw pe-3"></i>When your pet is missing</a>
-                            </li>
-                            <li class="mb-2">
-                                <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Recently found</a>
-                            </li>
-                            <li class="mb-2">
-                                <a asp-controller="Home" asp-action="HowToAdopt" class="text-white"><i class="fas fa-paw pe-3"></i>How to adopt?</a>
-                            </li>
-                            <li class="mb-2">
-                                <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
-                            </li>
-                            <li class="mb-2">
-                                <a asp-controller="Volunteers" asp-action="Become" class="text-white"><i class="fas fa-paw pe-3"></i>Be Our Hero</a>
-                            </li>
-                            <li class="mb-2">
-                                <a asp-controller="Home" asp-action="About" class="text-white"><i class="fas fa-paw pe-3"></i>Who we are</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
-                        <h5 class="text-uppercase mb-4">Contact</h5>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <p><i class="fas fa-map-marker-alt pe-2"></i>Sofia, 57 Street, Bulgaria</p>
-                            </li>
-                            <li>
-                                <p><i class="fas fa-phone pe-2"></i>+359 2 234 567 89</p>
-                            </li>
-                            <li>
-                                <p><i class="fas fa-envelope pe-2 mb-0"></i>contact@HighPaw.com</p>
-                            </li>
-                        </ul>
+    <div style="min-height: calc(100vh - 95px);">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span style="color: #5e9693;">High</span><span style="color: #fdc57b;">Paw</span></a>
+                    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        @if (!User.IsAdmin())
+                        {
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="HowToAdopt">How to adopt</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Pets" asp-action="AllLost">Lost pets</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Pets" asp-action="AllFound">Found pets</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Articles" asp-action="All">Articles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Events" asp-action="All">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                                </li>
+                            </ul>
+                        }
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
-            </div>
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-                ©  @DateTime.UtcNow.Year - High Paw
-            </div>
-        </footer>
+            </nav>
+        </header>
+
+        <div class="container app">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
+    <footer class="bg text-center text-lg-start text-white position-sticky" style="background-color: #fdc57b;">
+        <div class="container pt-5 border-bottom">
+            <div class="row my-4">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 mx-4">
+
+                    <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
+                        <img src="https://mdbootstrap.com/img/Photos/new-templates/animal-shelter/logo.png" height="70" alt=""
+                             loading="lazy" />
+                    </div>
+
+                    <p class="text-center">Our goal is to keep pets out of the shelters</p>
+
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
+                    <h5 class="text-uppercase mb-4">Animals</h5>
+
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a asp-controller="Pets" asp-action="Add" class="text-white"><i class="fas fa-paw pe-3"></i>When your pet is missing</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Recently found</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="HowToAdopt" class="text-white"><i class="fas fa-paw pe-3"></i>How to adopt?</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Pets" asp-action="AllFound" class="text-white"><i class="fas fa-paw pe-3"></i>Pets for adoption</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Volunteers" asp-action="Become" class="text-white"><i class="fas fa-paw pe-3"></i>Be Our Hero</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="About" class="text-white"><i class="fas fa-paw pe-3"></i>Who we are</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0  mx-2">
+                    <h5 class="text-uppercase mb-4">Contact</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p><i class="fas fa-map-marker-alt pe-2"></i>Sofia, 57 Street, Bulgaria</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-phone pe-2"></i>+359 2 234 567 89</p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-envelope pe-2 mb-0"></i>contact@HighPaw.com</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            ©  @DateTime.UtcNow.Year - High Paw
+        </div>
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

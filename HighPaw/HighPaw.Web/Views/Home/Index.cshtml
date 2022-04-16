@@ -18,7 +18,7 @@ margin-top: 5rem">
             <div class="text-white">
                 <h1 class="mb-3" style="font-weight: 900;">ALL FOR LOVE</h1>
                 <h4 class="mb-3">Pets change our lives, let’s save theirs!</h4>
-                <a class="btn btn-outline-light btn-lg" asp-controller="Pets" asp-action="All" role="button">Adopt now</a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="Pets" asp-action="AllFound" role="button">Adopt now <i class="fa-solid fa-heart"></i></a>
             </div>
             <!--QuizFilter-->
             <section>
@@ -71,7 +71,7 @@ margin-top: 5rem">
         }
     </div>
     <div class="d-grid gap-2">
-        <a class="btn btn-outline-warning" asp-controller="Pets" asp-action="All">View All</a>
+        <a class="btn btn-outline-warning" asp-controller="Pets" asp-action="All"><i class="fa-solid fa-cat"></i>  View All  <i class="fa-solid fa-dog"></i></a>
     </div>
 }
 
@@ -92,8 +92,8 @@ margin-top: 5rem">
                             <h6 class="card-subtitle mb-2 text-muted">@article.CreatorName</h6>
                             <p class="card-text">@Html.Raw(article.Content.Substring(0, 120)) . . .</p>
                             <h6 class="card-subtitle mb-2 text-muted">@article.CreatedOn.Substring(0, 11)</h6>
-                            <a asp-controller="Articles" asp-action="Read" asp-route-id="@article.Id" class="btn btn-outline-success btn-sm">Read More</a>
                         </div>
+                        <a asp-controller="Articles" asp-action="Read" asp-route-id="@article.Id" class="btn btn-outline-success btn-sm position-sticky"><i class="fa-solid fa-glasses"></i> Read More</a>
                     </div>
                 </div>
             }

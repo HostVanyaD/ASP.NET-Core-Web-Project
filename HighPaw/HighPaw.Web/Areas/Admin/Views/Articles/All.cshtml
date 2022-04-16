@@ -39,8 +39,8 @@
                         <td>@article.ArticleType</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-start">
-                                <a asp-controller="Articles" asp-action="Edit" asp-route-id="@article.Id" class="btn btn-info btn-sm">Edit</a>
-                                <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article from the database?')">Delete</a>
+                                <a asp-controller="Articles" asp-action="Edit" asp-route-id="@article.Id" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article from the database?')"><i class="fa-solid fa-trash"></i> Delete</a>
                             </div>
                         </td>
                     </tr>

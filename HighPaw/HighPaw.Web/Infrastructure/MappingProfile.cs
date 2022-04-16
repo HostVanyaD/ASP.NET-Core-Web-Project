@@ -31,6 +31,7 @@
 
             this.CreateMap<Pet, PetDetailsServiceModel>()
                 .ForMember(pd => pd.PetType, cfg => cfg.MapFrom(p => p.PetType == PetType.Dog ? DogPetType : CatPetType))
+                .ForMember(pd => pd.SizeCategory, cfg => cfg.MapFrom(p => p.SizeCategory.Name))
                 .ForMember(pd => pd.MicrochipId, cfg => cfg.MapFrom(p => p.MicrochipId ?? MicrochipIdInfoNotAvailable))
                 .ForMember(pd => pd.Shelter, cfg => cfg.MapFrom(p => p.Shelter));
 

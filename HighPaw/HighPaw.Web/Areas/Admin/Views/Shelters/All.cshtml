@@ -37,9 +37,9 @@
                             <td scope="col">@shelter.Website</td>
                             <td scope="col">
                                 <div class="d-grid gap-2 d-md-flex justify-content-start">
-                                    <a asp-controller="Shelters" asp-action="Edit" asp-route-id="@shelter.Id" class="btn btn-info btn-sm">Edit</a>
+                                    <a asp-controller="Shelters" asp-action="Edit" asp-route-id="@shelter.Id" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                     <a asp-controller="Shelters" asp-action="Delete" asp-route-id="@shelter.Id"
-                               class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Shelter?')">Delete</a>
+                               class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Shelter?')"><i class="fa-solid fa-trash"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>

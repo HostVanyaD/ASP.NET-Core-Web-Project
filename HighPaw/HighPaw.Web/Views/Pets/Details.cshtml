@@ -1,19 +1,30 @@
 ﻿@model PetDetailsServiceModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"Details about {Model.Name}";
 }
 
-<article class="postcard light green">
+<article class="postcard light green" style="margin-top: 7rem;">
     <a class="postcard__img_link">
         <img class="postcard__img" src="@Model.ImageUrl" alt="@Model.PetType @Model.Name" />
     </a>
     <div class="postcard__text">
-        <h1 class="postcard__title green"><a href="#">@Model.Name</a></h1>
-        <div class="postcard__subtitle small">
-            <time datetime="2020-05-25 12:00:00">
-                <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-            </time>
+        <h1 class="postcard__title green">@Model.Name</h1>
+        <div class="postcard__subtitle small" style="white-space: pre-line">
+            @if (Model.IsFound)
+            {
+                <time datetime="2020-05-25 12:00:00">
+                    Found Location: @Model.FoundLocation 
+                    <i class="fas fa-calendar-alt mr-2"></i> @Model.FoundDate.Substring(0, 16)
+                </time>
+            }
+            @if (Model.IsLost)
+            {
+                <time datetime="2020-05-25 12:00:00">
+                    Last seen: @Model.LastSeenLocation 
+                    <i class="fas fa-calendar-alt mr-2"></i> @Model.LostDate.Substring(0, 16)
+                </time>
+            }
         </div>
         <div class="postcard__bar"></div>
         <div class="postcard__preview-txt">
@@ -26,14 +37,7 @@
                     <p>Breed: @Model.Breed</p>
                     <p>Color: @Model.Color</p>
                     <p>Microchip ID: @Model.MicrochipId</p>
-                    @if(Model.IsFound)
-                    {
-                        <p>Found Location: @Model.FoundLocation on @Model.FoundDate.Substring(0, 16)</p>
-                    }
-                    @if(Model.IsLost)
-                    {
-                        <p>Last seen: @Model.LastSeenLocation on @Model.LostDate.Substring(0, 16)</p>
-                    }
+
                 </div>
                 <div class="column">
                     <p>Shelter: @Model.Shelter.Name</p>
@@ -45,30 +49,31 @@
             </div>
         </div>
 
-        @if(!Model.IsAdopted && !Model.IsLost)
+        @if (!Model.IsAdopted && !Model.IsLost)
         {
             <ul class="postcard__tagbox">
-            <li class="tag__item play green">
-                <a asp-controller="Pets" asp-action="AdoptMe" asp-route-id="@Model.Id">
-                    <i class="fa-solid fa-house-chimney"></i> Adopt me</a>
-            </li>
-        </ul>
+                <li class="tag__item play green">
+                    <a asp-controller="Pets" asp-action="AdoptMe" asp-route-id="@Model.Id">
+                        <i class="fa-solid fa-house-chimney"></i> Adopt me
+                    </a>
+                </li>
+            </ul>
         }
-        @if(Model.IsLost)
+        @if (Model.IsLost)
         {
             <ul class="postcard__tagbox">
-            <li class="tag__item play green">
-                If you have seen me please take me to the nearest shelter 💚
-            </li>
-        </ul>
+                <li class="tag__item play green">
+                    If you have seen me please take me to the nearest shelter 💚
+                </li>
+            </ul>
         }
-        @if(Model.IsAdopted)
+        @if (Model.IsAdopted)
         {
             <ul class="postcard__tagbox">
-            <li class="tag__item play green">
-                <a><i class="fa-solid fa-face-grin-hearts"></i> I am adopted</a>
-            </li>
-        </ul>
+                <li class="tag__item play green">
+                    <a><i class="fa-solid fa-face-grin-hearts"></i> I am adopted</a>
+                </li>
+            </ul>
         }
     </div>
 </article>
