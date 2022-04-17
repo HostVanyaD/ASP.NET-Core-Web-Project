@@ -4,47 +4,51 @@
     ViewBag.Title = "Upcoming events";
 }
 
+<h2 class="font-weight-light text-center text-muted" style="margin-top: 5rem;">@ViewBag.Title</h2>
+
 @if (!Model.Any())
 {
     <h1 class="text-center" style="margin: 10rem 0 3rem 0; font-size: 4.5rem; font-weight: 300; line-height: inherit">No events at the moment</h1>
 }
 
+@if (User.IsAdmin() || User.IsVolunteer())
+{
+    <div class="col-12 text-center">
+        <a asp-controller="Events" asp-action="Create" class="btn btn-outline-success btn-sm">Create New</a>
+    </div>
+}
+
 @if (Model.Any())
 {
-    <div class="container py-4 mt-5">
-        <h2 class="font-weight-light text-center text-muted py-3">@ViewBag.Title</h2>
+    <div class="container py-4 mt-3">
 
-            @foreach (var ev in Model)
-            {
-        <!-- timeline item 1 -->
-    <div class="row">
-                 <!-- timeline item 1 left dot -->
-        <div class="col-auto text-center flex-column d-none d-sm-flex">
-            <div class="row h-50">
-                <div class="col">&nbsp;</div>
-                <div class="col">&nbsp;</div>
-            </div>
-            <h5 class="m-2">
-                <span class="badge rounded-pill bg-light border">&nbsp;</span>
-            </h5>
-            <div class="row h-50">
-                <div class="col border-end order">&nbsp;</div>
-                <div class="col">&nbsp;</div>
-            </div>
-        </div>
-        <!-- timeline item 1 event content -->
-        <div class="col py-2">
-            <div class="card">
-                <div class="card-body">
-                    <div class="float-end text-muted">@ev.Date.Substring(0, 10)</div>
-                    <h4 class="card-title" style="color: #5e9693;">@ev.Title</h4>
-                    <p class="card-text">@ev.Description</p>
-                    <h5 class="text-muted">@ev.Location</h5>
+        @foreach (var ev in Model)
+        {
+            <div class="row">
+            <div class="col-auto text-center flex-column d-none d-sm-flex">
+                <div class="row h-50">
+                    <div class="col">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
+                </div>
+                <h5 class="m-2">
+                    <span class="badge rounded-pill bg-light border">&nbsp;</span>
+                </h5>
+                <div class="row h-50">
+                    <div class="col border-end order">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
                 </div>
             </div>
-        </div>
+            <div class="col py-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="float-end text-muted">@ev.Date.Substring(0, 10)</div>
+                            <h4 class="card-title" style="color: #5e9693;">@ev.Title</h4>
+                            <p class="card-text">@ev.Description</p>
+                            <h5 class="text-muted">@ev.Location</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-    <!--/row-->      
-            }
-        </div>
 }
